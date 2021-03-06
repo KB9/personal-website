@@ -10,8 +10,7 @@ function Header() {
             <Link href="/">Kavan Bickerstaff</Link>
           </Box>
           <HStack spacing="24px">
-            <Link href="/about">About</Link>
-            <Link href="/contact">Contact</Link>
+            <Link href="/blog">Blog</Link>
           </HStack>
         </Flex>
       </Container>
