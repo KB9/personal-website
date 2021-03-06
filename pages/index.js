@@ -47,6 +47,7 @@ function Home() {
             </Box>
           </Box>
           <Text
+            visibility={{ base: "hidden", lg: "visible" }}
             position="absolute"
             bottom="0"
             right="0"
