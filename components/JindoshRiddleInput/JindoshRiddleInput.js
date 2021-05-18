@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Box, Center, Heading, Select, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Heading, Select, Text } from "@chakra-ui/react";
 
 import Solver from "../../services/jindosh-riddle-solver";
 
-function JindoshRiddleInput() {
+function JindoshRiddleInput(props) {
   const [selectedOptions, setSelectedOptions] = useState({});
 
   const createOptionSelect = (optionName, optionValues) => {
@@ -100,9 +100,19 @@ function JindoshRiddleInput() {
         In the morning there were four heirlooms under the table: [heirloom],
         [heirloom], [heirloom], and [heirloom].
       </Text>
-      <Text>
+      <Text mb="4">
         But who owned each?
       </Text>
+      <Center>
+        <Button
+          size="lg"
+          pl="80px"
+          pr="80px"
+          onClick={() => props.onSubmit(selectedOptions)}
+        >
+          Solve
+        </Button>
+      </Center>
     </Box>
   );
 }

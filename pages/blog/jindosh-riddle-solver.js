@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import { Container } from "@chakra-ui/react";
 
@@ -6,7 +7,15 @@ import JindoshRiddleInput from "../../components/JindoshRiddleInput";
 import Solver from "../../services/jindosh-riddle-solver";
 
 function JindoshRiddleSolver() {
-  const solution = Solver.solve({});
+  const [solution, setSolution] = useState(null);
+
+  const solveRiddle = (options) => {
+    const results = Solver.solve(options);
+    setSolution(results);
+  }
+
+  console.log(solution);
+
   return (
     <>
       <Head>
@@ -14,9 +23,8 @@ function JindoshRiddleSolver() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout maxWidth="container.xl" height="100vh">
-        {solution.getTrueVars()}
         <Container maxWidth="container.md">
-          <JindoshRiddleInput />
+          <JindoshRiddleInput onSubmit={options => solveRiddle(options)} />
         </Container>
       </Layout>
     </>
