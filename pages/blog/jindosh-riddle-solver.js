@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
-import { Container } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 
 import Layout from "../../components/Layout";
 import JindoshRiddleInput from "../../components/JindoshRiddleInput";
@@ -23,7 +23,9 @@ function JindoshRiddleSolver() {
       </Head>
       <Layout maxWidth="container.xl" height="100vh">
         <Container maxWidth="container.md">
-          <JindoshRiddleInput onSubmit={options => solveRiddle(options)} />
+          <Box mb="4">
+            <JindoshRiddleInput onSubmit={options => solveRiddle(options)} />
+          </Box>
           {solution !== null ? <JindoshRiddleSolution solution={solution} /> : null}
         </Container>
       </Layout>
