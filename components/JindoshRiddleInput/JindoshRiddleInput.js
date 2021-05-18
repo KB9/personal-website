@@ -1,7 +1,38 @@
 import { useState } from "react";
-import { Box, Button, Center, Heading, Select, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Heading, HStack, Select, Text } from "@chakra-ui/react";
 
 import Solver from "../../services/jindosh-riddle-solver";
+
+const { cities, colors, drinks, heirlooms, people } = Solver.options;
+
+const presetOptions = {
+  jauntyHatPerson: people[1],
+  jauntyHatColor: colors[0],
+  farLeftPerson: people[4],
+  jacketColor: colors[3],
+  leftColor: colors[1],
+  rightColor: colors[4],
+  spilledDrinkDressColor: colors[1],
+  spilledDrink: drinks[4],
+  entireDressCity: cities[4],
+  entireDressColor: colors[2],
+  braggedAboutHeirloom: heirlooms[2],
+  finerHeirloomCity: cities[4],
+  prizedHeirloomOwner: people[2],
+  prizedHeirloom: heirlooms[3],
+  scoffingLadyCity: cities[2],
+  scoffingLadyHeirloom: heirlooms[1],
+  valuableHeirloom: heirlooms[4],
+  visitorsCity: cities[0],
+  spilledNextToVisitorDrink: drinks[2],
+  toastPerson: people[3],
+  toastDrink: drinks[0],
+  tableJumperCity: cities[1],
+  tableJumperDrink: drinks[1],
+  centerDrink: drinks[3],
+  storyTellerPerson: people[0],
+  storyTellerCity: cities[3]
+}
 
 function JindoshRiddleInput(props) {
   const [selectedOptions, setSelectedOptions] = useState({});
@@ -31,8 +62,6 @@ function JindoshRiddleInput(props) {
       </Box>
     );
   }
-
-  const { cities, colors, drinks, heirlooms, people } = Solver.options;
 
   const jauntyHatPerson = createOptionSelect("jauntyHatPerson", people);
   const jauntyHatColor = createOptionSelect("jauntyHatColor", colors);
@@ -103,16 +132,22 @@ function JindoshRiddleInput(props) {
       <Text mb="4">
         But who owned each?
       </Text>
-      <Center>
+      <HStack>
         <Button
           size="lg"
-          pl="80px"
-          pr="80px"
+          width="250px"
           onClick={() => props.onSubmit(selectedOptions)}
         >
           Solve
         </Button>
-      </Center>
+        <Button
+          size="lg"
+          width="250px"
+          onClick={() => setSelectedOptions(presetOptions)}
+        >
+          Generate preset
+        </Button>
+      </HStack>
     </Box>
   );
 }
