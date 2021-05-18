@@ -4,6 +4,7 @@ import { Container } from "@chakra-ui/react";
 
 import Layout from "../../components/Layout";
 import JindoshRiddleInput from "../../components/JindoshRiddleInput";
+import JindoshRiddleSolution from "../../components/JindoshRiddleSolution";
 import Solver from "../../services/jindosh-riddle-solver";
 
 function JindoshRiddleSolver() {
@@ -14,8 +15,6 @@ function JindoshRiddleSolver() {
     setSolution(results);
   }
 
-  console.log(solution);
-
   return (
     <>
       <Head>
@@ -25,6 +24,7 @@ function JindoshRiddleSolver() {
       <Layout maxWidth="container.xl" height="100vh">
         <Container maxWidth="container.md">
           <JindoshRiddleInput onSubmit={options => solveRiddle(options)} />
+          {solution !== null ? <JindoshRiddleSolution solution={solution} /> : null}
         </Container>
       </Layout>
     </>
