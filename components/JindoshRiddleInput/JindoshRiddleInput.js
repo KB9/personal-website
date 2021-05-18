@@ -46,7 +46,7 @@ function JindoshRiddleInput(props) {
       });
     };
     const selectOptions = optionValues.map(option => (
-      <option value={option}>{option}</option>
+      <option key={option} value={option}>{option}</option>
     ));
 
     return (
@@ -95,11 +95,11 @@ function JindoshRiddleInput(props) {
       <Center>
         <Heading mb="4">The Jindosh Riddle</Heading>
       </Center>
-      <Text mb="4">
+      <Box mb="4">
         At the dinner party were Lady Winslow, Doctor Marcolla, Countess
         Contee, Madam Natsiou, and Baroness Finch.
-      </Text>
-      <Text mb="4">
+      </Box>
+      <Box mb="4">
         The women sat in a row. They all wore different colors and
         {jauntyHatPerson} wore a jaunty {jauntyHatColor} hat.
         {farLeftPerson} was at the far left, next to the guest wearing a
@@ -110,8 +110,8 @@ function JindoshRiddleInput(props) {
         of the dinner guests bragged about her {braggedAboutHeirloom}, the
         woman next to her said they were finer in {finerHeirloomCity}, where
         she lived.
-      </Text>
-      <Text mb="4">
+      </Box>
+      <Box mb="4">
         So {prizedHeirloomOwner} showed off a prized {prizedHeirloom}, at which
         the lady from {scoffingLadyCity} scoffed, saying it was no match for
         her {scoffingLadyHeirloom}. Someone else carried a valuable
@@ -123,15 +123,15 @@ function JindoshRiddleInput(props) {
         spilling the poor woman's {centerDrink}. Then {storyTellerPerson}{" "}
         captivated them all with a story about her wild youth in
         {storyTellerCity}.
-      </Text>
-      <Text mb="4">
+      </Box>
+      <Box mb="4">
         {/* TODO: Set these after prizedHeirloom is set, as we know who owns it */}
         In the morning there were four heirlooms under the table: [heirloom],
         [heirloom], [heirloom], and [heirloom].
-      </Text>
-      <Text mb="4">
+      </Box>
+      <Box mb="4">
         But who owned each?
-      </Text>
+      </Box>
       <HStack>
         <Button
           size="lg"
