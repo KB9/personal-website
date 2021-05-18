@@ -1,6 +1,8 @@
 import Head from "next/head";
+import { Container } from "@chakra-ui/react";
 
 import Layout from "../../components/Layout";
+import JindoshRiddleInput from "../../components/JindoshRiddleInput";
 
 import Logic from "logic-solver";
 
@@ -276,6 +278,9 @@ function JindoshRiddleSolver() {
         Drinks: {drinks.map(drink => solution.evaluate(drink) + ", ")}<br/>
         Cities: {cities.map(city => solution.evaluate(city) + ", ")}<br/>
         Heirlooms: {heirlooms.map(heirloom => solution.evaluate(heirloom) + ", ")}
+        <Container maxWidth="container.md">
+          <JindoshRiddleInput />
+        </Container>
       </Layout>
     </>
   );
