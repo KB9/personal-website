@@ -1,5 +1,6 @@
 import Head from "next/head";
 import {
+  Box,
   Divider,
   Heading,
   Image,
@@ -17,8 +18,27 @@ import Blog from "../../services/blog";
 
 const mdComponents = {
   a: ({node, ...props}) => <Link href={props.href}>{props.children}</Link>,
-  // blockquote: TODO,
-  // code: TODO,
+  blockquote: ({node, ...props}) => (
+    <Box
+      borderLeft=".25em solid"
+      borderLeftColor="gray.500"
+      paddingLeft="1em"
+      paddingRight="1em"
+      color="gray.500"
+    >
+      {props.children}
+    </Box>
+  ),
+  code: ({node, ...props}) => (
+    <Box
+      bg="rgb(237, 242, 247)"
+      borderRadius="6px"
+      p={props.inline ? ".2em .4em" : "16px"}
+      display={props.inline ? "inline" : "block"}
+    >
+      {props.children}
+    </Box>
+  ),
   em: ({node, ...props}) => <Text as="em">{props.children}</Text>,
   h1: ({node, ...props}) => <Heading as="h1" size="xl">{props.children}</Heading>,
   h2: ({node, ...props}) => <Heading as="h2" size="lg">{props.children}</Heading>,
