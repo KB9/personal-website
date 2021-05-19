@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, Center, Heading, HStack, Select, Tooltip } from "@chakra-ui/react";
+import { Box, Button, Center, Heading, Stack, Select, Tooltip } from "@chakra-ui/react";
 
 import Solver from "../../services/jindosh-riddle-solver";
 
@@ -170,22 +170,22 @@ function JindoshRiddleInput(props) {
         But who owned each?
       </Box>
       <Center>
-        <HStack>
+        <Stack direction={["column", "row"]}>
           <Button
             size="lg"
-            width="250px"
+            width="200px"
             onClick={() => props.onSubmit(selectedOptions)}
           >
             Solve
           </Button>
           <Button
             size="lg"
-            width="250px"
+            width="200px"
             onClick={() => setSelectedOptions(presetOptions)}
           >
             Generate preset
           </Button>
-        </HStack>
+        </Stack>
       </Center>
     </Box>
   );
