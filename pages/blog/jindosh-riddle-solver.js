@@ -8,17 +8,18 @@ import JindoshRiddleSolution from "../../components/JindoshRiddleSolution";
 import Solver from "../../services/jindosh-riddle-solver";
 
 function JindoshRiddleSolver() {
-  const [solution, setSolution] = useState(null);
-  const [missingOptionNames, setMissingOptionNames] = useState([]);
+  const [solverResult, setSolverResult] = useState(null);
 
   const solveRiddle = (options) => {
     const result = Solver.solve(options);
-    if (result.success) {
-      setSolution(result.solution);
-      setMissingOptionNames([]);
-    } else {
-      setMissingOptionNames(result.missingOptionNames);
-    }
+    setSolverResult(result);
+  }
+
+  let wasSolveSuccessful = false;
+  let missingOptionNames = [];
+  if (solverResult !== null) {
+    wasSolveSuccessful = solverResult.success;
+    missingOptionNames = solverResult.missingOptionNames;
   }
 
   return (
@@ -35,7 +36,7 @@ function JindoshRiddleSolver() {
               missingOptionNames={missingOptionNames}
             />
           </Box>
-          {solution !== null ? <JindoshRiddleSolution solution={solution} /> : null}
+          {wasSolveSuccessful ? <JindoshRiddleSolution solution={solverResult.solution} /> : null}
         </Container>
       </Layout>
     </>

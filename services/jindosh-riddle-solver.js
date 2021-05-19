@@ -324,6 +324,13 @@ function solve(options) {
   findMatchesAtSingleIndexDistance(heirloomVars, braggedAboutHeirloom, cityVars, finerHeirloomCity);
 
   const solution = solver.solve();
+  if (solution === null) {
+    return {
+      success: true,
+      missingOptionNames,
+      solution: null
+    };
+  }
 
   const solvedCityIds = cityVars.map(city => solution.evaluate(city));
   const solvedColorIds = colorVars.map(color => solution.evaluate(color));
@@ -339,6 +346,7 @@ function solve(options) {
 
   return {
     success: true,
+    missingOptionNames,
     solution: {
       cities: solvedCityStrings,
       colors: solvedColorStrings,

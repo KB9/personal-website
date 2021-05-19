@@ -1,5 +1,6 @@
 import {
   Box,
+  Center,
   Table,
   Thead,
   Tbody,
@@ -7,9 +8,20 @@ import {
   Th,
   Td,
   TableCaption,
+  Text
 } from "@chakra-ui/react";
 
 function JindoshRiddleSolution(props) {
+  if (props.solution === null) {
+    return (
+      <Box borderWidth="1px" borderRadius="lg" p="4">
+        <Center>
+          <Text color="red">No solution found!</Text>
+        </Center>
+      </Box>
+    )
+  }
+
   const {cities, colors, drinks, heirlooms, people} = props.solution;
 
   const createTableRow = (index) => {
