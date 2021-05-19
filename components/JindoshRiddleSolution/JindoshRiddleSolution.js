@@ -43,7 +43,7 @@ function JindoshRiddleSolution(props) {
   }
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" p="4">
+    <Box borderWidth="1px" borderRadius="lg" p="4" overflowX="auto">
       <Table>
         <TableCaption>Each person and their properties in left to right order.</TableCaption>
         <Thead>
