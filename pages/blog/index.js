@@ -1,12 +1,12 @@
 import Head from "next/head";
-import { Box, Heading, Stack } from "@chakra-ui/react";
+import { Heading, Stack } from "@chakra-ui/react";
 
-import Layout from "../components/Layout";
-import BlogCard from "../components/BlogCard";
+import Layout from "../../components/Layout";
+import BlogCard from "../../components/BlogCard";
 
-import Blog from "../services/blog";
+import Blog from "../../services/blog";
 
-function BlogPage(props) {
+function BlogHomePage(props) {
 
   const blogPostLinks = props.blogPostList.map(blogPost => {
     return (
@@ -45,4 +45,4 @@ export async function getStaticProps(context) {
   };
 }
 
-export default BlogPage;
+export default BlogHomePage;
