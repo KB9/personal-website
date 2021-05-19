@@ -9,10 +9,16 @@ import Solver from "../../services/jindosh-riddle-solver";
 
 function JindoshRiddleSolver() {
   const [solution, setSolution] = useState(null);
+  const [missingOptionNames, setMissingOptionNames] = useState([]);
 
   const solveRiddle = (options) => {
-    const results = Solver.solve(options);
-    setSolution(results);
+    const result = Solver.solve(options);
+    if (result.success) {
+      setSolution(result.solution);
+      setMissingOptionNames([]);
+    } else {
+      setMissingOptionNames(result.missingOptionNames);
+    }
   }
 
   return (
@@ -24,7 +30,10 @@ function JindoshRiddleSolver() {
       <Layout maxWidth="container.xl" height="100vh">
         <Container maxWidth="container.md">
           <Box mb="4">
-            <JindoshRiddleInput onSubmit={options => solveRiddle(options)} />
+            <JindoshRiddleInput
+              onSubmit={options => solveRiddle(options)}
+              missingOptionNames={missingOptionNames}
+            />
           </Box>
           {solution !== null ? <JindoshRiddleSolution solution={solution} /> : null}
         </Container>

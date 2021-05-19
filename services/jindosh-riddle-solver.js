@@ -48,7 +48,54 @@ function optionString(optionId, options) {
   return options[optionId];
 }
 
+const optionNames = [
+  "jauntyHatPerson",
+  "jauntyHatColor",
+  "farLeftPerson",
+  "jacketColor",
+  "leftColor",
+  "rightColor",
+  "spilledDrinkDressColor",
+  "spilledDrink",
+  "entireDressCity",
+  "entireDressColor",
+  "braggedAboutHeirloom",
+  "finerHeirloomCity",
+  "prizedHeirloomOwner",
+  "prizedHeirloom",
+  "scoffingLadyCity",
+  "scoffingLadyHeirloom",
+  "valuableHeirloom",
+  "visitorsCity",
+  "spilledNextToVisitorDrink",
+  "toastPerson",
+  "toastDrink",
+  "tableJumperCity",
+  "tableJumperDrink",
+  "centerDrink",
+  "storyTellerPerson",
+  "storyTellerCity"
+];
+
+function getMissingOptions(options) {
+  const missingOptionNames = [];
+  for (const name of optionNames) {
+    if (!options.hasOwnProperty(name) || options[name] === null || options[name] === "") {
+      missingOptionNames.push(name);
+    }
+  }
+  return missingOptionNames;
+}
+
 function solve(options) {
+
+  const missingOptionNames = getMissingOptions(options);
+  if (missingOptionNames.length > 0) {
+    return {
+      success: false,
+      missingOptionNames
+    };
+  }
 
   const personA = Logic.variableBits("personA", 4);
   const personB = Logic.variableBits("personB", 4);
@@ -291,11 +338,14 @@ function solve(options) {
   const solvedPeopleStrings = solvedPeopleIds.map(id => optionString(id, people));
 
   return {
-    cities: solvedCityStrings,
-    colors: solvedColorStrings,
-    drinks: solvedDrinkStrings,
-    heirlooms: solvedHeirloomStrings,
-    people: solvedPeopleStrings
+    success: true,
+    solution: {
+      cities: solvedCityStrings,
+      colors: solvedColorStrings,
+      drinks: solvedDrinkStrings,
+      heirlooms: solvedHeirloomStrings,
+      people: solvedPeopleStrings
+    }
   };
 }
 
@@ -307,5 +357,6 @@ export default {
     cities,
     heirlooms
   },
+  optionNames,
   solve
 };

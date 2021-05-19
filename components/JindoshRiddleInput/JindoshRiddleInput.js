@@ -52,6 +52,7 @@ function JindoshRiddleInput(props) {
       });
     };
     const selectOptions = generateSelectOptions(optionValues);
+    const isMissingValue = props.missingOptionNames.includes(optionName);
     return (
       <Box display="inline-block" width="auto">
         <Select
@@ -59,6 +60,7 @@ function JindoshRiddleInput(props) {
           value={value}
           onChange={onValueChange}
           placeholder=" "
+          isInvalid={isMissingValue}
         >
           {selectOptions}
         </Select>
