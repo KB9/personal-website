@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, Center, Heading, HStack, Select, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Heading, HStack, Select, Tooltip } from "@chakra-ui/react";
 
 import Solver from "../../services/jindosh-riddle-solver";
 
@@ -34,6 +34,12 @@ const presetOptions = {
   storyTellerCity: cities[3]
 }
 
+function generateSelectOptions(optionValues) {
+  return optionValues.map(option => (
+    <option key={option} value={option}>{option}</option>
+  ));
+}
+
 function JindoshRiddleInput(props) {
   const [selectedOptions, setSelectedOptions] = useState({});
 
@@ -45,10 +51,7 @@ function JindoshRiddleInput(props) {
         [optionName]: evt.target.value
       });
     };
-    const selectOptions = optionValues.map(option => (
-      <option key={option} value={option}>{option}</option>
-    ));
-
+    const selectOptions = generateSelectOptions(optionValues);
     return (
       <Box display="inline-block" width="auto">
         <Select
@@ -90,6 +93,38 @@ function JindoshRiddleInput(props) {
   const storyTellerPerson = createOptionSelect("storyTellerPerson", people);
   const storyTellerCity = createOptionSelect("storyTellerCity", cities);
 
+  const unknownHeirlooms = [];
+  const heirloomSelectOptions = generateSelectOptions(heirlooms);
+  for (const heirloom of heirlooms) {
+    if (selectedOptions.prizedHeirloom && heirloom === selectedOptions.prizedHeirloom) {
+      continue;
+    }
+
+    let value = " ";
+    if (selectedOptions.prizedHeirloom) {
+      value = heirloom;
+    }
+
+    unknownHeirlooms.push(
+      <Tooltip
+        label="This option does not affect the solution. It is filled in automatically by selecting other options."
+        aria-label="A tooltip"
+      >
+        <Box display="inline-block" width="auto">
+          <Select
+            h="28px"
+            value={value}
+            placeholder=" "
+            disabled={true}
+            icon={<span/>}
+          >
+            {heirloomSelectOptions}
+          </Select>
+        </Box>
+      </Tooltip>
+    );
+  }
+
   return (
     <Box borderWidth="1px" borderRadius="lg" p="4">
       <Center>
@@ -126,8 +161,8 @@ function JindoshRiddleInput(props) {
       </Box>
       <Box mb="4">
         {/* TODO: Set these after prizedHeirloom is set, as we know who owns it */}
-        In the morning there were four heirlooms under the table: [heirloom],
-        [heirloom], [heirloom], and [heirloom].
+        In the morning there were four heirlooms under the table: {unknownHeirlooms[0]},
+        {unknownHeirlooms[1]}, {unknownHeirlooms[2]}, and {unknownHeirlooms[3]}.
       </Box>
       <Box mb="4">
         But who owned each?
