@@ -167,22 +167,24 @@ function JindoshRiddleInput(props) {
       <Box mb="4">
         But who owned each?
       </Box>
-      <HStack>
-        <Button
-          size="lg"
-          width="250px"
-          onClick={() => props.onSubmit(selectedOptions)}
-        >
-          Solve
-        </Button>
-        <Button
-          size="lg"
-          width="250px"
-          onClick={() => setSelectedOptions(presetOptions)}
-        >
-          Generate preset
-        </Button>
-      </HStack>
+      <Center>
+        <HStack>
+          <Button
+            size="lg"
+            width="250px"
+            onClick={() => props.onSubmit(selectedOptions)}
+          >
+            Solve
+          </Button>
+          <Button
+            size="lg"
+            width="250px"
+            onClick={() => setSelectedOptions(presetOptions)}
+          >
+            Generate preset
+          </Button>
+        </HStack>
+      </Center>
     </Box>
   );
 }
