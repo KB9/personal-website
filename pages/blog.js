@@ -4,7 +4,22 @@ import { Box, Heading, Stack } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 import BlogCard from "../components/BlogCard";
 
-function BlogPage() {
+import Blog from "../services/blog";
+
+function BlogPage(props) {
+
+  const blogPostLinks = props.blogPostList.map(blogPost => {
+    return (
+      <BlogCard
+        key={blogPost.url}
+        title={blogPost.title}
+        text={blogPost.subtitle}
+        timestamp={blogPost.timestamp}
+        link={`/blog/${blogPost.url}`}
+      />
+    );
+  });
+
   return (
     <>
     <Head>
@@ -14,16 +29,20 @@ function BlogPage() {
     <Layout maxWidth="container.md">
       <Heading as="h1" marginTop="10">Blog</Heading>
       <Stack direction="column" marginTop="6" spacing="4">
-        <BlogCard
-          title="Modelling the Jindosh Riddle as a Boolean Satisfiability Problem"
-          text="Solving any version of the Jindosh Riddle from the video game Dishonored 2."
-          timestamp="May 20, 2021"
-          link="/blog/jindosh-riddle-solver"
-        />
+        {blogPostLinks}
       </Stack>
     </Layout>
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  const blogPostList = await Blog.getBlogPostList();
+  return {
+    props: {
+      blogPostList
+    }
+  };
 }
 
 export default BlogPage;
