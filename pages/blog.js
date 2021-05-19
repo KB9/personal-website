@@ -15,9 +15,10 @@ function BlogPage() {
       <Heading as="h1" marginTop="10">Blog</Heading>
       <Stack direction="column" marginTop="6" spacing="4">
         <BlogCard
-          title="Coming Soon"
-          text="The first blog post will arrive shortly."
-          timestamp="March 6, 2020"
+          title="Modelling the Jindosh Riddle as a Boolean Satisfiability Problem"
+          text="Solving any version of the Jindosh Riddle from the video game Dishonored 2."
+          timestamp="May 20, 2021"
+          link="/blog/jindosh-riddle-solver"
         />
       </Stack>
     </Layout>
