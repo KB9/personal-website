@@ -15,6 +15,7 @@ import RemarkMathPlugin from "remark-math";
 import Katex from "rehype-katex";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import cpp from 'react-syntax-highlighter/dist/cjs/languages/hljs/cpp';
+import js from "react-syntax-highlighter/dist/cjs/languages/hljs/javascript";
 import github from 'react-syntax-highlighter/dist/cjs/styles/hljs/github';
 
 import Layout from "../../components/Layout";
@@ -26,6 +27,7 @@ import "katex/dist/katex.min.css";
 
 // Register languages as required
 SyntaxHighlighter.registerLanguage('cpp', cpp);
+SyntaxHighlighter.registerLanguage("js", js);
 
 const preBackground = "rgb(240, 240, 240)";
 

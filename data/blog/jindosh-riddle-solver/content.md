@@ -73,3 +73,74 @@ We also know that each person will have one item from the following categories:
 - A colour of clothing
 - A drink
 - An heirloom
+
+Each category can be modelled as an array containing five integers. Each
+integer will represent a specific item in that category. For example:
+- Lady Winslow = $0$
+- Doctor Marcolla = $1$
+- Countess Contee = $2$
+- Madam Natsiou = $3$
+- Baroness Finch = $4$
+
+We don't know where each of these people will be sitting, therefore we don't
+know where their integer ID will be in the array. With Logic Solver, we model
+this like so:
+
+```js
+const personA = Logic.variableBits("personA", 4);
+const personB = Logic.variableBits("personB", 4);
+const personC = Logic.variableBits("personC", 4);
+const personD = Logic.variableBits("personD", 4);
+const personE = Logic.variableBits("personE", 4);
+const peopleVars = [personA, personB, personC, personD, personE];
+```
+
+In essence, this simply creates an array with space for five integers. The
+integers at each index are not specified since we don't know what they are.
+This is repeated for every category until there are five variable arrays.
+
+### Bounded Domain
+
+The first constraint to apply to the integer variables within an array is to
+specify a bounded domain. This will ensure that the integer values found in a
+solution are bounded within the $[0, 4]$ range, which can be nicely mapped to
+the items we have assigned to each integer value.
+
+```js
+const withinRange = (vars, lowerBound, upperBound) => {
+  for (let i = 0; i < vars.length; i++) {
+    solver.require(Logic.greaterThanOrEqual(vars[i], Logic.constantBits(lowerBound)));
+    solver.require(Logic.lessThanOrEqual(vars[i], Logic.constantBits(upperBound)));
+  }
+};
+
+withinRange(peopleVars, 0, 4);
+withinRange(colorVars, 0, 4);
+withinRange(drinkVars, 0, 4);
+withinRange(cityVars, 0, 4);
+withinRange(heirloomVars, 0, 4);
+```
+
+### Distinct Values
+
+No two items in a category can be at the same position at the table. We apply
+this constraint to each array by requiring all values to be different from
+each other:
+
+```js
+const allDifferent = (vars) => {
+  for (let i = 0; i < vars.length; i++) {
+    for (let j = 0; j < vars.length; j++) {
+      if (i !== j) {
+        solver.forbid(Logic.equalBits(vars[i], vars[j]));
+      }
+    }
+  }
+};
+
+allDifferent(peopleVars);
+allDifferent(colorVars);
+allDifferent(drinkVars);
+allDifferent(cityVars);
+allDifferent(heirloomVars);
+```
