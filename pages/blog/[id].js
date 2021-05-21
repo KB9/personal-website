@@ -11,10 +11,14 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import ReactMarkdown from "react-markdown";
+import RemarkMathPlugin from "remark-math";
+import Katex from "rehype-katex";
 
 import Layout from "../../components/Layout";
 
 import Blog from "../../services/blog";
+
+import "katex/dist/katex.min.css";
 
 const mdComponents = {
   a: ({node, ...props}) => (
@@ -147,6 +151,14 @@ const mdComponents = {
   )
 };
 
+const mdPlugins = [
+  RemarkMathPlugin
+];
+
+const rehypePlugins = [
+  Katex
+];
+
 function BlogPost(props) {
   return (
     <>
@@ -158,7 +170,11 @@ function BlogPost(props) {
         <Heading mb="1">{props.blogPost.title}</Heading>
         <Text mb="1">{props.blogPost.subtitle}</Text>
         <Text mb="6">{props.blogPost.timestamp}</Text>
-        <ReactMarkdown components={mdComponents}>
+        <ReactMarkdown
+          components={mdComponents}
+          plugins={mdPlugins}
+          rehypePlugins={rehypePlugins}
+        >
           {props.blogPost.content}
         </ReactMarkdown>
       </Layout>
