@@ -145,6 +145,39 @@ allDifferent(cityVars);
 allDifferent(heirloomVars);
 ```
 
+### Items with Specified Positions
+
+In the riddle, the positions of a few items are given. One example of this is:
+
+> Baroness Finch was at the far left, next to the guest wearing a blue jacket.
+
+We treat the first index in the arrays as the far left side of the table, and
+the last index as the far right side. We use this to constrain the value of
+the integer at index 0 in the `peopleVars` array to the integer value
+representing Baroness Finch:
+
+```js
+solver.require(Logic.equalBits(peopleVars[0], finch));
+```
+
+Given that Baroness Finch is at index 0, the integer value representing the
+blue jacket can only be at index 1 in the `colorVars` array:
+
+```js
+solver.require(Logic.equalBits(colorVars[1], blue));
+```
+
+Another clue gives the location of a drink at the table:
+
+> ...falling onto the guest in the center seat, spilling the poor woman's beer.
+
+We constrain the value at index 2 in the `drinksVar` array to be equal to the
+integer value representing the beer:
+
+```js
+Logic.equalBits(drinkVars[2], beer)
+```
+
 ### Items at the Same Table Position
 
 Throughout the riddle, associations are made between items in a category with
