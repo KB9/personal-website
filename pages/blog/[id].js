@@ -17,7 +17,15 @@ import Layout from "../../components/Layout";
 import Blog from "../../services/blog";
 
 const mdComponents = {
-  a: ({node, ...props}) => <Link href={props.href}>{props.children}</Link>,
+  a: ({node, ...props}) => (
+    <Link
+      href={props.href}
+      color="#319795"
+      isExternal
+    >
+      {props.children}
+    </Link>
+  ),
   blockquote: ({node, ...props}) => (
     <Box
       borderLeft=".25em solid"
