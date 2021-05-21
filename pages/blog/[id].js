@@ -18,6 +18,7 @@ import cpp from 'react-syntax-highlighter/dist/cjs/languages/hljs/cpp';
 import github from 'react-syntax-highlighter/dist/cjs/styles/hljs/github';
 
 import Layout from "../../components/Layout";
+import JindoshGrid from "../../components/JindoshGrid";
 
 import Blog from "../../services/blog";
 
@@ -51,6 +52,11 @@ const mdComponents = {
     </Box>
   ),
   code: ({node, ...props}) => {
+    if (props.className === "language-jindosh-grid") {
+      const data = JSON.parse(props.children);
+      return <JindoshGrid {...data} />;
+    }
+
     const match = /language-(\w+)/.exec(props.className || "");
     return !props.inline && match ? (
       <SyntaxHighlighter

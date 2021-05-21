@@ -52,3 +52,24 @@ Solving a Boolean satisfiability problem can thus be broken down into two
 parts:
 1. Can the formula $F$ ever evaluate to `true` (i.e. is it satisfiable)?
 2. If it can, what values of $x_1$, $x_2$, and $x_3$ cause it to be `true`?
+
+## The Jindosh Riddle Formula
+
+We don't know who is sitting where but we do know that there can only be one
+person per seat.
+
+```jindosh-grid
+{
+  "cols": 5,
+  "rows": 1,
+  "topHeaders": ["A", "B", "C", "D", "E"],
+  "leftHeaders": [],
+  "useFirstCell": true
+}
+```
+
+We also know that each person will have one item from the following categories:
+- A city of residence
+- A colour of clothing
+- A drink
+- An heirloom
