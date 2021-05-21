@@ -180,8 +180,8 @@ Logic.equalBits(drinkVars[2], beer)
 
 ### Items at the Same Table Position
 
-Throughout the riddle, associations are made between items in a category with
-statements such as:
+Throughout the riddle, associations are made between the positions of items
+in different categories with statements such as:
 
 > Doctor Marcolla wore a jaunty white hat.
 
