@@ -222,6 +222,9 @@ solver.require(
 );
 ```
 
+This can be generalised as a function which accepts any two arrays and values
+to apply the same constraint for other categories and items.
+
 ### Items Beside Each Other at the Table
 
 Another large amount of clues in this riddle are in the form of statements such
@@ -289,3 +292,6 @@ solver.require(
   )
 );
 ```
+
+Much like the previous constraint, this is a specific version of a more
+general function which can apply this constraint for any two arrays.
