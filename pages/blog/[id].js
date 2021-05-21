@@ -24,6 +24,7 @@ const mdComponents = {
       borderLeftColor="gray.500"
       paddingLeft="1em"
       paddingRight="1em"
+      marginBottom="16px"
       color="gray.500"
     >
       {props.children}
@@ -34,26 +35,99 @@ const mdComponents = {
       bg="rgb(237, 242, 247)"
       borderRadius="6px"
       p={props.inline ? ".2em .4em" : "16px"}
+      mb="16px"
       display={props.inline ? "inline" : "block"}
     >
       {props.children}
     </Box>
   ),
   em: ({node, ...props}) => <Text as="em">{props.children}</Text>,
-  h1: ({node, ...props}) => <Heading as="h1" size="xl">{props.children}</Heading>,
-  h2: ({node, ...props}) => <Heading as="h2" size="lg">{props.children}</Heading>,
-  h3: ({node, ...props}) => <Heading as="h3" size="md">{props.children}</Heading>,
-  h4: ({node, ...props}) => <Heading as="h4" size="sm">{props.children}</Heading>,
-  h5: ({node, ...props}) => <Heading as="h5" size="sm">{props.children}</Heading>,
-  h6: ({node, ...props}) => <Heading as="h6" size="sm">{props.children}</Heading>,
-  hr: ({node, ...props}) => <Divider />,
+  h1: ({node, ...props}) => (
+    <Heading
+      as="h1"
+      size="xl"
+      marginTop="24px"
+      marginBottom="16px"
+    >
+      {props.children}
+    </Heading>
+  ),
+  h2: ({node, ...props}) => (
+    <Heading
+      as="h2"
+      size="lg"
+      marginTop="24px"
+      marginBottom="16px"
+    >
+      {props.children}
+    </Heading>
+  ),
+  h3: ({node, ...props}) => (
+    <Heading
+      as="h3"
+      size="md"
+      marginTop="24px"
+      marginBottom="16px"
+    >
+      {props.children}
+    </Heading>
+  ),
+  h4: ({node, ...props}) => (
+    <Heading
+      as="h4"
+      size="sm"
+      marginTop="24px"
+      marginBottom="16px"
+    >
+      {props.children}
+    </Heading>
+  ),
+  h5: ({node, ...props}) => (
+    <Heading
+      as="h5"
+      size="sm"
+      marginTop="24px"
+      marginBottom="16px"
+    >
+      {props.children}
+    </Heading>
+  ),
+  h6: ({node, ...props}) => (
+    <Heading
+      as="h6"
+      size="sm"
+      marginTop="24px"
+      marginBottom="16px"
+    >
+      {props.children}
+    </Heading>
+  ),
+  hr: ({node, ...props}) => <Divider m="24px 0" />,
   img: ({node, ...props}) => <Image title={props.title} src={props.src} />,
-  li: ({node, ...props}) => <ListItem>{props.children}</ListItem>,
-  ol: ({node, ...props}) => <OrderedList>{props.children}</OrderedList>,
-  p: ({node, ...props}) => <Text>{props.children}</Text>,
+  li: ({node, ...props}) => (
+    <ListItem marginTop={props.index > 0 ? ".25em" : "0px"}>
+      {props.children}
+    </ListItem>
+  ),
+  ol: ({node, ...props}) => (
+    <OrderedList
+      marginBottom={props.depth === 0 ? "16px" : "0px"}
+      marginLeft="2em"
+    >
+      {props.children}
+    </OrderedList>
+  ),
+  p: ({node, ...props}) => <Text marginBottom="16px">{props.children}</Text>,
   pre: ({node, ...props}) => <Text as="kbd">{props.children}</Text>,
-  strong: ({node, ...props}) => <Text as="b">{props.children}</Text>,
-  ul: ({node, ...props}) => <UnorderedList>{props.children}</UnorderedList>
+  strong: ({node, ...props}) => <Text as="b" mb="16px">{props.children}</Text>,
+  ul: ({node, ...props}) => (
+    <UnorderedList
+      marginBottom={props.depth === 0 ? "16px" : "0px"}
+      marginLeft="2em"
+    >
+      {props.children}
+    </UnorderedList>
+  )
 };
 
 function BlogPost(props) {
