@@ -39,15 +39,14 @@ const mdComponents = {
     </Box>
   ),
   code: ({node, ...props}) => (
-    <Box
-      bg="rgb(237, 242, 247)"
-      borderRadius="6px"
-      p={props.inline ? ".2em .4em" : "16px"}
-      mb="16px"
-      display={props.inline ? "inline" : "block"}
+    <Text
+      as="kbd"
+      padding={props.inline ? ".2em .4em" : "0px"}
+      borderRadius={props.inline ? "6px" : "0px"}
+      bg={props.inline ? "rgb(237, 242, 247)" : null}
     >
       {props.children}
-    </Box>
+    </Text>
   ),
   em: ({node, ...props}) => <Text as="em">{props.children}</Text>,
   h1: ({node, ...props}) => (
@@ -126,7 +125,17 @@ const mdComponents = {
     </OrderedList>
   ),
   p: ({node, ...props}) => <Text marginBottom="16px">{props.children}</Text>,
-  pre: ({node, ...props}) => <Text as="kbd">{props.children}</Text>,
+  pre: ({node, ...props}) => (
+    <Box
+      bg="rgb(237, 242, 247)"
+      borderRadius="6px"
+      p={props.inline ? ".2em .4em" : "16px"}
+      mb="16px"
+      whiteSpace="pre"
+    >
+      {props.children}
+    </Box>
+  ),
   strong: ({node, ...props}) => <Text as="b" mb="16px">{props.children}</Text>,
   ul: ({node, ...props}) => (
     <UnorderedList
