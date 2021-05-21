@@ -144,3 +144,115 @@ allDifferent(drinkVars);
 allDifferent(cityVars);
 allDifferent(heirloomVars);
 ```
+
+### Items at the Same Table Position
+
+Throughout the riddle, associations are made between items in a category with
+statements such as:
+
+> Doctor Marcolla wore a jaunty white hat.
+
+> I remember that red outfit because the woman spilled her absinthe all over
+> it.
+
+> The traveler from Karnaca was dressed entirely in purple.
+
+While we can't pinpoint the precise position of these items at the table, we
+know that they will be at the same position. If we wanted to apply this
+constraint for the red outfit and absinthe, the following constraint could
+be written:
+
+```js
+solver.require(
+  Logic.or(
+    Logic.and(
+      Logic.equalBits(colors[0], red),
+      Logic.equalBits(drinks[0], absinthe)
+    ),
+    Logic.and(
+      Logic.equalBits(colors[1], red),
+      Logic.equalBits(drinks[1], absinthe)
+    ),
+    Logic.and(
+      Logic.equalBits(colors[2], red),
+      Logic.equalBits(drinks[2], absinthe)
+    ),
+    Logic.and(
+      Logic.equalBits(colors[3], red),
+      Logic.equalBits(drinks[3], absinthe)
+    ),
+    Logic.and(
+      Logic.equalBits(colors[4], red),
+      Logic.equalBits(drinks[4], absinthe)
+    )
+  )
+);
+```
+
+### Items Beside Each Other at the Table
+
+Another large amount of clues in this riddle are in the form of statements such
+as:
+
+> Someone else carried a valuable War Medal and when she saw it, the visitor
+> from Dabokva next to her...
+
+> ...the visitor from Dabokva next to her almost spilled her neighbor's rum.
+
+> When one of the dinner guests bragged about her Ring, the woman next
+> to her said they were finer in Karnaca, where she lived.
+
+These statements all indicate that the mentioned items are beside each other at
+the table. This constraint is a little trickier to write but follows the same
+principle as the previous. Instead of checking for items at the same position in
+two arrays, we check if an item in one array is on either side of an item in
+another. Taking the Ring and Karnaca as an example:
+
+```js
+Logic.and(
+  Logic.equalBits(heirloomVars[i], ring),
+  Logic.or(
+    Logic.equalBits(cityVars[i-1], karnaca),
+    Logic.equalBits(cityVars[i+1], karnaca)
+  )
+);
+```
+
+We also have to consider the edge cases where the items may be at the end of
+the table. To express this overall constraint over the entirety of both arrays:
+
+```js
+solver.require(
+  Logic.or(
+    Logic.and(
+      Logic.equalBits(heirloomVars[0], ring),
+      Logic.equalBits(cityVars[1], karnaca)
+    ),
+    Logic.and(
+      Logic.equalBits(heirloomVars[1], ring),
+      Logic.or(
+        Logic.equalBits(cityVars[0], karnaca),
+        Logic.equalBits(cityVars[2], karnaca)
+      )
+    ),
+    Logic.and(
+      Logic.equalBits(heirloomVars[2], ring),
+      Logic.or(
+        Logic.equalBits(cityVars[1], karnaca),
+        Logic.equalBits(cityVars[3], karnaca)
+      )
+    ),
+    Logic.and(
+      Logic.equalBits(heirloomVars[3], ring),
+      Logic.or(
+        Logic.equalBits(cityVars[2], karnaca),
+        Logic.equalBits(cityVars[4], karnaca)
+      )
+    ),
+    Logic.and(
+      Logic.equalBits(heirloomVars[4], ring),
+      Logic.equalBits(cityVars[3], karnaca)
+    )
+  )
+);
+```
