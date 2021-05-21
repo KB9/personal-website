@@ -13,12 +13,20 @@ import {
 import ReactMarkdown from "react-markdown";
 import RemarkMathPlugin from "remark-math";
 import Katex from "rehype-katex";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import cpp from 'react-syntax-highlighter/dist/cjs/languages/hljs/cpp';
+import github from 'react-syntax-highlighter/dist/cjs/styles/hljs/github';
 
 import Layout from "../../components/Layout";
 
 import Blog from "../../services/blog";
 
 import "katex/dist/katex.min.css";
+
+// Register languages as required
+SyntaxHighlighter.registerLanguage('cpp', cpp);
+
+const preBackground = "rgb(240, 240, 240)";
 
 const mdComponents = {
   a: ({node, ...props}) => (
@@ -42,16 +50,28 @@ const mdComponents = {
       {props.children}
     </Box>
   ),
-  code: ({node, ...props}) => (
-    <Text
-      as="kbd"
-      padding={props.inline ? ".2em .4em" : "0px"}
-      borderRadius={props.inline ? "6px" : "0px"}
-      bg={props.inline ? "rgb(237, 242, 247)" : null}
-    >
-      {props.children}
-    </Text>
-  ),
+  code: ({node, ...props}) => {
+    const match = /language-(\w+)/.exec(props.className || "");
+    return !props.inline && match ? (
+      <SyntaxHighlighter
+        language={match[1]}
+        style={github}
+        PreTag="div"
+        children={String(props.children).replace(/\n$/, '')}
+        customStyle={{ background: preBackground }}
+        {...props}
+      />
+    ) : (
+      <Text
+        as="kbd"
+        padding={props.inline ? ".2em .4em" : "0px"}
+        borderRadius={props.inline ? "6px" : "0px"}
+        bg={props.inline ? preBackground : null}
+      >
+        {props.children}
+      </Text>
+    )
+  },
   em: ({node, ...props}) => <Text as="em">{props.children}</Text>,
   h1: ({node, ...props}) => (
     <Heading
@@ -131,7 +151,7 @@ const mdComponents = {
   p: ({node, ...props}) => <Text marginBottom="16px">{props.children}</Text>,
   pre: ({node, ...props}) => (
     <Box
-      bg="rgb(237, 242, 247)"
+      bg={preBackground}
       borderRadius="6px"
       p={props.inline ? ".2em .4em" : "16px"}
       mb="16px"
