@@ -295,3 +295,16 @@ solver.require(
 
 Much like the previous constraint, this is a specific version of a more
 general function which can apply this constraint for any two arrays.
+
+### The Solution
+
+Calling `solver.solve()` will find the first solution which satisfies all the
+specified constraints, or it will determine that no such solution is possible
+based off of our constraints. You've probably already guessed that a solution
+does exist though, and you'd be correct:
+
+- Baroness Finch owns the War Medal
+- Madam Natsiou owns the Ring
+- Doctor Marcolla owns the Diamond
+- Lady Winslow owns the Bird Pendant
+- Countess Contee owns the Snuff Tin
