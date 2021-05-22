@@ -26,7 +26,7 @@ For those who haven't, it follows some variation of this:
 >
 > But who owned each?
 
-## What is a Boolean Satisfiability Problem?
+## What is a Boolean Satisfiability Problem (SAT)?
 
 Imagine we have 3 Boolean variables $x_1$, $x_2$, and $x_3$, and a formula $F$
 which uses these variables. The goal is to find the values of $x_1$, $x_2$, and 
@@ -52,6 +52,35 @@ Solving a Boolean satisfiability problem can thus be broken down into two
 parts:
 1. Can the formula $F$ ever evaluate to `true` (i.e. is it satisfiable)?
 2. If it can, what values of $x_1$, $x_2$, and $x_3$ cause it to be `true`?
+
+## SAT Solvers
+
+SAT is an NP-complete problem. There is no known way to find a solution to an
+NP-complete problem quickly, though their solutions can be verified "quickly".
+Such problems can be solved using brute-force search algorithms. However, the
+time taken for such an algorithm to solve the problem rapidly increases as the
+size of the problem grows.
+
+While a method for computing solutions to NP-complete problems remains
+undiscovered, SAT solvers use efficient algorithms to solve problems
+involving potentially millions of constraints. While the Jindosh Riddle may
+not have quite as many constraints, deriving a conventional algorithm to solve
+it is tricky.
+
+To solve the Jindosh Riddle, we will use
+[Logic Solver](https://github.com/meteor/logic-solver). Logic Solver is
+responsible for taking arbitrary Boolean formulas and converting these into
+conjunctive normal form (CNF). This means that the entire Boolean formula is
+a conjunction (AND) of clauses, with each clause being a disjunction (OR) of
+literals. Some examples of formulas in CNF include:
+
+- $(A \lor B) \land (C \lor D)$
+- $(A \lor B) \land C$
+- $(A \lor B)$
+- $A$
+
+In CNF, the satisfiability of a formula becomes much easier to determine. Once
+in CNF, Logic Solver passes it to [MiniSAT](http://minisat.se) internally.
 
 ## The Jindosh Riddle Formula
 
