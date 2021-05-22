@@ -81,6 +81,9 @@ literals. Some examples of formulas in CNF include:
 
 In CNF, the satisfiability of a formula becomes much easier to determine. Once
 in CNF, Logic Solver passes it to [MiniSAT](http://minisat.se) internally.
+MiniSAT uses
+[conflict-driven clause learning](https://en.wikipedia.org/wiki/Conflict-driven_clause_learning)
+to efficiently solve the SAT.
 
 ## The Jindosh Riddle Formula
 
