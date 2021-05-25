@@ -53,37 +53,65 @@ parts:
 1. Can the formula $F$ ever evaluate to `true` (i.e. is it satisfiable)?
 2. If it can, what values of $x_1$, $x_2$, and $x_3$ cause it to be `true`?
 
+## Modelling the Jindosh Riddle using SAT
+
+When modelling a Boolean satisfiability problem, there are two key components
+we need to consider:
+1. What are the variables?
+2. What are the constraints on those variables?
+
+Variables are the unknowns in the problem. **The goal of solving the problem is
+to assign a value to each of these variables**. In the Jindosh Riddle, the key
+variables we want to find are the people who own each heirloom. However, these
+are not the only variables we can use to find a solution.
+
+A constraint defines the allowed combination of values for a set of variables.
+For a valid solution to be found, all constraints must be adhered to. An
+example of a constraint in the Jindosh Riddle is:
+
+> Baroness Finch was at the far left
+
+This constraint specifies that the variable representing the person at the far
+left of the table **must** have a value which is equal to the value
+representing Baroness Finch.
+
 ## SAT Solvers
 
-SAT is an NP-complete problem. There is no known way to find a solution to an
-NP-complete problem quickly, though their solutions can be verified "quickly".
-Such problems can be solved using brute-force search algorithms. However, the
-time taken for such an algorithm to solve the problem rapidly increases as the
-size of the problem grows.
+SAT is an NP-complete problem. A key characteristic of NP-complete problems is
+that only algorithms with exponential worst-case complexity are known for
+solving them. When solving NP-complete problems involving potentially thousands
+of variables and conditions, conventional algorithmic approaches become
+impractical to use.
 
-While a method for computing solutions to NP-complete problems remains
-undiscovered, SAT solvers use efficient algorithms to solve problems
-involving potentially millions of constraints. While the Jindosh Riddle may
-not have quite as many constraints, deriving a conventional algorithm to solve
-it is tricky.
+In spite of this, efficient algorithms have been developed for SAT which can
+scale to solve problems involving a high number of variables and constraints.
+An example of a collection of such algorithms is the SAT solver
+[MiniSAT](http://minisat.se).
 
-To solve the Jindosh Riddle, we will use
-[Logic Solver](https://github.com/meteor/logic-solver). Logic Solver is
-responsible for taking arbitrary Boolean formulas and converting these into
-conjunctive normal form (CNF). This means that the entire Boolean formula is
-a conjunction (AND) of clauses, with each clause being a disjunction (OR) of
-literals. Some examples of formulas in CNF include:
+MiniSAT is a small but efficient SAT solver which accepts formulas expressed in
+conjunctive normal form (CNF), and outputs whether the formula is satisfiable
+or not along with the values which satisfy the formula.
+
+Boolean formulas expressed in CNF consist of a conjunction (AND) of clauses,
+with each clause being a disjunction (OR) of literals. Some examples of
+formulas in CNF include:
 
 - $(A \lor B) \land (C \lor D)$
 - $(A \lor B) \land C$
 - $(A \lor B)$
 - $A$
 
-In CNF, the satisfiability of a formula becomes much easier to determine. Once
-in CNF, Logic Solver passes it to [MiniSAT](http://minisat.se) internally.
-MiniSAT uses
-[conflict-driven clause learning](https://en.wikipedia.org/wiki/Conflict-driven_clause_learning)
-to efficiently solve the SAT.
+Few problems can be naturally expressed in CNF, and the Jindosh Riddle is no
+exception. We could apply
+[De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) to express
+it in this way, though we'd still have to convert it to the DIMACS file format
+expected by MiniSAT.
+
+Rather than wasting time performing these steps, we will use
+[Logic Solver](https://github.com/meteor/logic-solver). Logic Solver is
+responsible for taking arbitrary Boolean formulas and converting these into
+CNF. Internally, Logic Solver uses MiniSAT to determine satisfiability and the
+values in a solution.
 
 ## The Jindosh Riddle Formula
 
