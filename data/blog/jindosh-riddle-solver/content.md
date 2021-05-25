@@ -28,30 +28,30 @@ For those who haven't, it follows some variation of this:
 
 ## What is a Boolean Satisfiability Problem (SAT)?
 
-Imagine we have 3 Boolean variables $x_1$, $x_2$, and $x_3$, and a formula $F$
-which uses these variables. The goal is to find the values of $x_1$, $x_2$, and 
-$x_3$ that make $F$ `true`. If there exists values that can make $F$ `true`, we
-say that $F$ is satisfiable.
+Imagine we have two Boolean variables $A$ and $B$, and a formula $F$ which uses
+these variables. The goal is to find the values of $A$ and $B$ that make $F$
+`true`. If there exists values that can make $F$ `true`, we say that $F$ is
+satisfiable.
 
 An example of a satisfiable formula is the logical AND (written $\land$) of
 these variables:
 
 $$
-F = x_1 \land x_2 \land x_3
+F = A \land B
 $$
 
 If all variables are `true`, then $F$ evaluates to `true`, making $F$
 satisfiable. However, if we append a `false` to this formula:
 
 $$
-F = x_1 \land x_2 \land x_3 \land 0
+F = A \land B \land 0
 $$
 
 $F$ will **always** evaluate to `false` making this formula unsatisfiable.
 Solving a Boolean satisfiability problem can thus be broken down into two
 parts:
 1. Can the formula $F$ ever evaluate to `true` (i.e. is it satisfiable)?
-2. If it can, what values of $x_1$, $x_2$, and $x_3$ cause it to be `true`?
+2. If it can, what values of $A$ and $B$ cause it to be `true`?
 
 ## Modelling the Jindosh Riddle using SAT
 
