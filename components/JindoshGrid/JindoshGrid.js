@@ -33,6 +33,7 @@ function JindoshGrid(props) {
         mr={`${border}px`}
         mb={`${border}px`}
         bg="white"
+        fontSize="xs"
         key={i}
       >
         <Center w="100%" h="100%">

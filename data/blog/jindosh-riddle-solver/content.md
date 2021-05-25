@@ -115,36 +115,45 @@ values in a solution.
 
 ## The Jindosh Riddle Formula
 
-We don't know who is sitting where but we do know that there can only be one
-person per seat.
+The first thing to consider is how we represent the variables in the Jindosh
+Riddle. We know that there are five seats at the table, and that each seat
+will have one property from the following categories:
 
-```jindosh-grid
-{
-  "cols": 5,
-  "rows": 1,
-  "topHeaders": ["A", "B", "C", "D", "E"],
-  "leftHeaders": [],
-  "useFirstCell": true
-}
-```
-
-We also know that each person will have one item from the following categories:
+- A person
 - A city of residence
 - A colour of clothing
 - A drink
 - An heirloom
 
-Each category can be modelled as an array containing five integers. Each
-integer will represent a specific item in that category. For example:
+If we were to visualise this, it would look something like this:
+```jindosh-grid
+{
+  "cols": 6,
+  "rows": 6,
+  "topHeaders": ["Seat A", "Seat B", "Seat C", "Seat D", "Seat E"],
+  "leftHeaders": ["Person", "City", "Colour", "Drink", "Heirloom"]
+}
+```
+
+Solving the Jindosh Riddle is therefore just a problem of deciding what values
+go where in this grid. Though what values will we use?
+
+When modelling a problem such as this, we tend to use integer variables. More
+specifically, we can uniquely represent each property in the five identified
+categories using unique integer variables as IDs. For example, if we were to do
+this for each person:
+
 - Lady Winslow = $0$
 - Doctor Marcolla = $1$
 - Countess Contee = $2$
 - Madam Natsiou = $3$
 - Baroness Finch = $4$
 
-We don't know where each of these people will be sitting, therefore we don't
-know where their integer ID will be in the array. With Logic Solver, we model
-this like so:
+This means we can represent each category as an integer array with five
+unique values representing each property at a particular seat. However, we have
+no way of knowing where these values will end up in each array without solving
+the problem first. With Logic Solver, we model such an array like so (using
+people as an example):
 
 ```js
 const personA = Logic.variableBits("personA", 4);
@@ -155,9 +164,14 @@ const personE = Logic.variableBits("personE", 4);
 const peopleVars = [personA, personB, personC, personD, personE];
 ```
 
-In essence, this simply creates an array with space for five integers. The
-integers at each index are not specified since we don't know what they are.
-This is repeated for every category until there are five variable arrays.
+In essence, this simply creates an array with space for five integers. This is
+repeated for every category until there are five variable arrays:
+
+- `peopleVars`
+- `colorVars`
+- `drinkVars`
+- `cityVars`
+- `heirloomVars`
 
 ### Bounded Domain
 
