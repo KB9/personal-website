@@ -115,9 +115,11 @@ values in a solution.
 
 ## The Jindosh Riddle Formula
 
+### Variables
+
 The first thing to consider is how we represent the variables in the Jindosh
 Riddle. We know that there are five seats at the table, and that each seat
-will have one property from the following categories:
+will have one item from the following categories:
 
 - A person
 - A city of residence
@@ -139,7 +141,7 @@ Solving the Jindosh Riddle is therefore just a problem of deciding what values
 go where in this grid. Though what values will we use?
 
 When modelling a problem such as this, we tend to use integer variables. More
-specifically, we can uniquely represent each property in the five identified
+specifically, we can uniquely represent each item in the five identified
 categories using unique integer variables as IDs. For example, if we were to do
 this for each person:
 
@@ -150,7 +152,7 @@ this for each person:
 - Baroness Finch = $4$
 
 This means we can represent each category as an integer array with five
-unique values representing each property at a particular seat. However, we have
+unique values representing each item at a particular seat. However, we have
 no way of knowing where these values will end up in each array without solving
 the problem first. With Logic Solver, we model such an array like so (using
 people as an example):
@@ -177,8 +179,9 @@ repeated for every category until there are five variable arrays:
 
 The first constraint to apply to the integer variables within an array is to
 specify a bounded domain. This will ensure that the integer values found in a
-solution are bounded within the $[0, 4]$ range, which can be nicely mapped to
-the items we have assigned to each integer value.
+solution are within the $[0, 4]$ range. These values can then be associated
+with the item IDs we are using. Without this, incorrect solutions
+containing values such as $1337$ would be considered valid.
 
 ```js
 const withinRange = (vars, lowerBound, upperBound) => {
@@ -197,9 +200,9 @@ withinRange(heirloomVars, 0, 4);
 
 ### Distinct Values
 
-No two items in a category can be at the same position at the table. We apply
-this constraint to each array by requiring all values to be different from
-each other:
+We want to ensure that each item can only be present at one seat. To do so,
+we specify that the values in each category array must be different from one
+another (i.e. they must all be unique). We can specify this constraint as:
 
 ```js
 const allDifferent = (vars) => {
