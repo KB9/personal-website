@@ -305,7 +305,18 @@ know that they will be at the same position. For example, we know that Doctor
 Marcolla and the white hat will be at the same position. What we mean by this
 is that the value representing Doctor Marcolla in the `peopleVars` array will
 have the same index as the value representing white in the `colorVars` array.
-We can express this as a generic constraint like so:
+If we were to express this for index 0 only (the left-most seat), it would look
+like this:
+
+```js
+Logic.and(
+  Logic.equalBits(varsA[0], white),
+  Logic.equalBits(varsB[0], marcolla)
+)
+```
+
+To apply this constraint for all indices, we simply OR this constraint over all
+possible positions. We can express this as a generic constraint like so:
 
 ```js
 const findMatchesAtSameIndex = (varsA, valueA, varsB, valueB) => {
