@@ -301,39 +301,55 @@ in different categories with statements such as:
 > The traveler from Karnaca was dressed entirely in purple.
 
 While we can't pinpoint the precise position of these items at the table, we
-know that they will be at the same position. If we wanted to apply this
-constraint for the red outfit and absinthe, the following constraint could
-be written:
+know that they will be at the same position. For example, we know that Doctor
+Marcolla and the white hat will be at the same position. What we mean by this
+is that the value representing Doctor Marcolla in the `peopleVars` array will
+have the same index as the value representing white in the `colorVars` array.
+We can express this as a generic constraint like so:
 
 ```js
-solver.require(
-  Logic.or(
-    Logic.and(
-      Logic.equalBits(colors[0], red),
-      Logic.equalBits(drinks[0], absinthe)
-    ),
-    Logic.and(
-      Logic.equalBits(colors[1], red),
-      Logic.equalBits(drinks[1], absinthe)
-    ),
-    Logic.and(
-      Logic.equalBits(colors[2], red),
-      Logic.equalBits(drinks[2], absinthe)
-    ),
-    Logic.and(
-      Logic.equalBits(colors[3], red),
-      Logic.equalBits(drinks[3], absinthe)
-    ),
-    Logic.and(
-      Logic.equalBits(colors[4], red),
-      Logic.equalBits(drinks[4], absinthe)
+const findMatchesAtSameIndex = (varsA, valueA, varsB, valueB) => {
+  solver.require(
+    Logic.or(
+      Logic.and(
+        Logic.equalBits(varsA[0], valueA),
+        Logic.equalBits(varsB[0], valueB)
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[1], valueA),
+        Logic.equalBits(varsB[1], valueB)
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[2], valueA),
+        Logic.equalBits(varsB[2], valueB)
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[3], valueA),
+        Logic.equalBits(varsB[3], valueB)
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[4], valueA),
+        Logic.equalBits(varsB[4], valueB)
+      )
     )
-  )
-);
+  );
+};
 ```
 
-This can be generalised as a function which accepts any two arrays and values
-to apply the same constraint for other categories and items.
+We can then apply this constraint for every item which belongs at the same
+position at the table. For the three statements mentioned previously:
+
+```js
+// Doctor Marcolla wore a jaunty white hat.
+findMatchesAtSameIndex(colorVars, white, peopleVars, marcolla);
+// I remember that red outfit because the woman spilled her absinthe all over it.
+findMatchesAtSameIndex(drinkVars, absinthe, colorVars, red);
+// The traveler from Karnaca was dressed entirely in purple.
+findMatchesAtSameIndex(colorVars, purple, cityVars, karnaca);
+```
+
+In total, there are 8 statements in the riddle which constrain two items to be
+in the same place as one another. See if you can spot the other five!
 
 ### Items Beside Each Other at the Table
 
