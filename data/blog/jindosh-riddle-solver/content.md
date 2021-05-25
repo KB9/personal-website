@@ -267,6 +267,25 @@ integer value representing the beer:
 Logic.equalBits(drinkVars[2], beer)
 ```
 
+If we visualise the effect of these constraints on the values in our grid:
+```jindosh-grid
+{
+  "cols": 6,
+  "rows": 6,
+  "topHeaders": ["Seat A", "Seat B", "Seat C", "Seat D", "Seat E"],
+  "leftHeaders": ["Person", "City", "Colour", "Drink", "Heirloom"],
+  "cellContents": {
+    "7": "Finch",
+    "20": "blue",
+    "27": "beer"
+  }
+}
+```
+
+Unfortunately, these are the only constraints which concretely tell us where
+each item is at the table. However, we can use information about the relative
+positioning of items to work out a unique solution.
+
 ### Items at the Same Table Position
 
 Throughout the riddle, associations are made between the positions of items

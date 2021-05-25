@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 
 function JindoshGrid(props) {
-  const { cols, rows, topHeaders, leftHeaders, useFirstCell } = props;
+  const { cols, rows, topHeaders, leftHeaders, useFirstCell, cellContents } = props;
 
   const w = 50;
   const h = 50;
@@ -24,6 +24,10 @@ function JindoshGrid(props) {
       if (i > 0 && i % cols == 0 && leftHeaderIdx < leftHeaders.length) {
         text = <Text>{leftHeaders[leftHeaderIdx]}</Text>;
       }
+    }
+
+    if (cellContents && cellContents.hasOwnProperty(i)) {
+      text = cellContents[i];
     }
 
     const cell = (
