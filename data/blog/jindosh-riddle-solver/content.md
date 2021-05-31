@@ -391,47 +391,82 @@ Logic.and(
 );
 ```
 
-We also have to consider the edge cases where the items may be at the end of
-the table. To express this overall constraint over the entirety of both arrays:
+This constraint covers most of the table but not all of it. We can't use this
+constraint for edge positions as `i-1` or `i+1` would exceed the bounds of the
+variable array. This would leave us with two seats at which the ring can never
+exist (according to our constraints). To account for these edge cases, we can
+use the following constraints:
 
 ```js
-solver.require(
-  Logic.or(
-    Logic.and(
-      Logic.equalBits(heirloomVars[0], ring),
-      Logic.equalBits(cityVars[1], karnaca)
-    ),
-    Logic.and(
-      Logic.equalBits(heirloomVars[1], ring),
-      Logic.or(
-        Logic.equalBits(cityVars[0], karnaca),
-        Logic.equalBits(cityVars[2], karnaca)
-      )
-    ),
-    Logic.and(
-      Logic.equalBits(heirloomVars[2], ring),
-      Logic.or(
-        Logic.equalBits(cityVars[1], karnaca),
-        Logic.equalBits(cityVars[3], karnaca)
-      )
-    ),
-    Logic.and(
-      Logic.equalBits(heirloomVars[3], ring),
-      Logic.or(
-        Logic.equalBits(cityVars[2], karnaca),
-        Logic.equalBits(cityVars[4], karnaca)
-      )
-    ),
-    Logic.and(
-      Logic.equalBits(heirloomVars[4], ring),
-      Logic.equalBits(cityVars[3], karnaca)
-    )
-  )
+// Constraint for the ring at the left-most seat, with the person from Karnaca
+// to its right.
+Logic.and(
+  Logic.equalBits(heirloomVars[0], ring),
+  Logic.equalBits(cityVars[1], karnaca)
+);
+
+// OR constraint for the ring at the right-most seat, with the person from
+// Karnaca to its left.
+Logic.and(
+  Logic.equalBits(heirloomVars[4], ring),
+  Logic.equalBits(cityVars[3], karnaca)
 );
 ```
 
-Much like the previous constraint, this is a specific version of a more
-general function which can apply this constraint for any two arrays.
+We can combine all of these constraints to give us a generic method for
+constraining two items of different categories to be beside each other at the
+table:
+
+```js
+const findMatchesAtSingleIndexDistance = (varsA, valueA, varsB, valueB) => {
+  solver.require(
+    Logic.or(
+      Logic.and(
+        Logic.equalBits(varsA[0], valueA),
+        Logic.equalBits(varsB[1], valueB)
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[1], valueA),
+        Logic.or(
+          Logic.equalBits(varsB[0], valueB),
+          Logic.equalBits(varsB[2], valueB)
+        )
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[2], valueA),
+        Logic.or(
+          Logic.equalBits(varsB[1], valueB),
+          Logic.equalBits(varsB[3], valueB)
+        )
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[3], valueA),
+        Logic.or(
+          Logic.equalBits(varsB[2], valueB),
+          Logic.equalBits(varsB[4], valueB)
+        )
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[4], valueA),
+        Logic.equalBits(varsB[3], valueB)
+      )
+    )
+  );
+};
+```
+
+This can then be applied to the relevant statements from the riddle:
+
+```js
+// Someone else carried a valuable War Medal and when she saw it, the visitor
+// from Dabokva next to her...
+findMatchesAtSingleIndexDistance(heirloomVars, warMedal, cityVars, dabokva);
+// ...the visitor from Dabokva next to her almost spilled her neighbor's rum.
+findMatchesAtSingleIndexDistance(cityVars, dabokva, drinkVars, rum);
+// When one of the dinner guests bragged about her Ring, the woman next to her
+// said they were finer in Karnaca, where she lived.
+findMatchesAtSingleIndexDistance(heirloomVars, ring, cityVars, karnaca);
+```
 
 ### The Solution
 
