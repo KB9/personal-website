@@ -131,6 +131,19 @@ values in a solution.
 
 ## The Jindosh Riddle Formula
 
+### Solver
+
+The `Solver` object maintains a list of formulas that must be true (or false),
+which you can think of as a list of constraints. Each `Solver` instance embeds
+a self-contained MiniSat instance, which learns and remembers facts that are
+derived from the constraints.
+
+```js
+const solver = new Logic.Solver();
+```
+
+When we define constraints later, we will add them to this `solver` instance.
+
 ### Variables
 
 The first thing to consider is how we represent the variables in the Jindosh
