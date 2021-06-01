@@ -362,6 +362,38 @@ findMatchesAtSameIndex(colorVars, purple, cityVars, karnaca);
 In total, there are 8 statements in the riddle which constrain two items to be
 in the same place as one another. See if you can spot the other five!
 
+### The Colours Next to Each Other
+
+> The lady in red sat left of someone in green.
+
+Implementing this constraint follows the same reasoning with which we
+implemented the previous constraint. However, instead of constraining the red
+and green values to exist at the same index, we constrain the colour red to be
+at any possible `i-1`th index (left) of green:
+
+```js
+solver.require(
+  Logic.or(
+    Logic.and(
+      Logic.equalBits(colorVars[0], red),
+      Logic.equalBits(colorVars[1], green)
+    ),
+    Logic.and(
+      Logic.equalBits(colorVars[1], red),
+      Logic.equalBits(colorVars[2], green)
+    ),
+    Logic.and(
+      Logic.equalBits(colorVars[2], red),
+      Logic.equalBits(colorVars[3], green)
+    ),
+    Logic.and(
+      Logic.equalBits(colorVars[3], red),
+      Logic.equalBits(colorVars[4], green)
+    )
+  )
+);
+```
+
 ### Items Beside Each Other at the Table
 
 Another large amount of clues in this riddle are in the form of statements such
@@ -376,10 +408,12 @@ as:
 > to her said they were finer in Karnaca, where she lived.
 
 These statements all indicate that the mentioned items are beside each other at
-the table. This constraint is a little trickier to write but follows the same
-principle as the previous. Instead of checking for items at the same position in
-two arrays, we check if an item in one array is on either side of an item in
-another. Taking the Ring and Karnaca as an example:
+the table. This constraint is a little trickier to write but is simply an
+extension of the previous constraint. Instead of constraining an item to be on
+one side of another item *only*, we extend it to allow another item to exist on
+either side (but not both sides - this would conflict with the `allDifferent`
+constraint we applied previously and would result in no viable solutions).
+Taking the Ring and Karnaca as an example:
 
 ```js
 Logic.and(
