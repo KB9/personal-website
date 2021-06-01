@@ -283,7 +283,7 @@ We constrain the value at index 2 in the `drinksVar` array to be equal to the
 integer value representing the beer:
 
 ```js
-Logic.equalBits(drinkVars[2], beer)
+solver.require(Logic.equalBits(drinkVars[2], beer));
 ```
 
 If we visualise the effect of these constraints on the values in our grid:
