@@ -396,9 +396,6 @@ solver.require(
 
 ### Items Beside Each Other at the Table
 
-Another large amount of clues in this riddle are in the form of statements such
-as:
-
 > Someone else carried a valuable War Medal and when she saw it, the visitor
 > from Dabokva next to her...
 
