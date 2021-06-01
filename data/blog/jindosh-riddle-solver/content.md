@@ -29,18 +29,18 @@ read on!*
 >
 > But who owned each?
 
-An interesting feature of this riddle is that it is different for each
-playthrough of the game. The position of each person at the table, the colour
-of their dress, the drink they have, and a couple of other properties change
-depending on what version of the riddle you get. This means that there is no
-single solution that will work for everyone's playthrough.
-
 The solution to this riddle is required to advance to the next level. You have
 two choices to find the solution:
 1. Waste an enormous amount of time trying to solve the riddle for yourself.
 2. Actually play the game to find a note containing the solution.
 
 This wouldn't be a very good blog post if I took the latter option.
+
+An interesting feature of this riddle is that it is different for each
+playthrough of the game. The position of each person at the table, the colour
+of their dress, the drink they have, and a couple of other properties change
+depending on what version of the riddle you get. This means that there is no
+single solution that will work for everyone's playthrough.
 
 ## What is a Boolean Satisfiability Problem (SAT)?
 
