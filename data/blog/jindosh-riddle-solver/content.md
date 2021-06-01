@@ -521,10 +521,17 @@ findMatchesAtSingleIndexDistance(heirloomVars, ring, cityVars, karnaca);
 Calling `solver.solve()` will find the first solution which satisfies all the
 specified constraints, or it will determine that no such solution is possible
 based off of our constraints. You've probably already guessed that a solution
-does exist though, and you'd be correct:
+does exist:
 
 - Baroness Finch owns the War Medal
 - Madam Natsiou owns the Ring
 - Doctor Marcolla owns the Diamond
 - Lady Winslow owns the Bird Pendant
 - Countess Contee owns the Snuff Tin
+
+I have implemented a [small demo](/blog/jindosh-riddle-solver-app) which
+implements the solver using the techniques discussed in this blog post. You can
+use it to solve any version of the Jindosh Riddle you find posted online (or
+while playing Dishonored 2). For convenience, the demo allows you to generate
+the version of the riddle at the beginning of this blog post so that you can see
+how it works.
