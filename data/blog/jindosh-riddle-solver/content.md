@@ -1,3 +1,7 @@
+*If you just want to generate a solution to the riddle instead of reading about
+the implementation, [click here](/blog/jindosh-riddle-solver-app). Otherwise
+read on!*
+
 > ## The Jindosh Riddle
 >
 > At the dinner party were Lady Winslow, Doctor Marcolla, Countess Contee,
