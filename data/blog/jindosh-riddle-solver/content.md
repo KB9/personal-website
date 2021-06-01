@@ -336,7 +336,7 @@ To apply this constraint for all indices, we simply OR this constraint over all
 possible positions. We can express this as a generic constraint like so:
 
 ```js
-const findMatchesAtSameIndex = (varsA, valueA, varsB, valueB) => {
+const requireMatchesAtSameIndex = (varsA, valueA, varsB, valueB) => {
   solver.require(
     Logic.or(
       Logic.and(
@@ -369,11 +369,11 @@ position at the table. For the three statements mentioned previously:
 
 ```js
 // Doctor Marcolla wore a jaunty white hat.
-findMatchesAtSameIndex(colorVars, white, peopleVars, marcolla);
+requireMatchesAtSameIndex(colorVars, white, peopleVars, marcolla);
 // I remember that red outfit because the woman spilled her absinthe all over it.
-findMatchesAtSameIndex(drinkVars, absinthe, colorVars, red);
+requireMatchesAtSameIndex(drinkVars, absinthe, colorVars, red);
 // The traveler from Karnaca was dressed entirely in purple.
-findMatchesAtSameIndex(colorVars, purple, cityVars, karnaca);
+requireMatchesAtSameIndex(colorVars, purple, cityVars, karnaca);
 ```
 
 In total, there are 8 statements in the riddle which constrain two items to be
@@ -466,7 +466,7 @@ constraining two items of different categories to be beside each other at the
 table:
 
 ```js
-const findMatchesAtSingleIndexDistance = (varsA, valueA, varsB, valueB) => {
+const requireMatchesWithinSingleIndex = (varsA, valueA, varsB, valueB) => {
   solver.require(
     Logic.or(
       Logic.and(
@@ -508,12 +508,12 @@ This can then be applied to the relevant statements from the riddle:
 ```js
 // Someone else carried a valuable War Medal and when she saw it, the visitor
 // from Dabokva next to her...
-findMatchesAtSingleIndexDistance(heirloomVars, warMedal, cityVars, dabokva);
+requireMatchesWithinSingleIndex(heirloomVars, warMedal, cityVars, dabokva);
 // ...the visitor from Dabokva next to her almost spilled her neighbor's rum.
-findMatchesAtSingleIndexDistance(cityVars, dabokva, drinkVars, rum);
+requireMatchesWithinSingleIndex(cityVars, dabokva, drinkVars, rum);
 // When one of the dinner guests bragged about her Ring, the woman next to her
 // said they were finer in Karnaca, where she lived.
-findMatchesAtSingleIndexDistance(heirloomVars, ring, cityVars, karnaca);
+requireMatchesWithinSingleIndex(heirloomVars, ring, cityVars, karnaca);
 ```
 
 ### The Solution

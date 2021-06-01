@@ -134,7 +134,7 @@ function solve(options) {
 
   const solver = new Logic.Solver();
 
-  const findMatchesAtSameIndex = (varsA, valueA, varsB, valueB) => {
+  const requireMatchesAtSameIndex = (varsA, valueA, varsB, valueB) => {
     solver.require(
       Logic.or(
         Logic.and(
@@ -161,7 +161,7 @@ function solve(options) {
     );
   };
 
-  const findMatchesAtSingleIndexDistance = (varsA, valueA, varsB, valueB) => {
+  const requireMatchesWithinSingleIndex = (varsA, valueA, varsB, valueB) => {
     solver.require(
       Logic.or(
         Logic.and(
@@ -263,12 +263,12 @@ function solve(options) {
   // [character] wore a jaunty [color] hat
   const jauntyHatPerson = optionId(options.jauntyHatPerson, people);
   const jauntyHatColor = optionId(options.jauntyHatColor, colors);
-  findMatchesAtSameIndex(colorVars, jauntyHatColor, peopleVars, jauntyHatPerson);
+  requireMatchesAtSameIndex(colorVars, jauntyHatColor, peopleVars, jauntyHatPerson);
 
   // I remember that [color] outfit because the woman spilled her [drink] all over it.
   const spilledDrink = optionId(options.spilledDrink, drinks);
   const spilledDrinkDressColor = optionId(options.spilledDrinkDressColor, colors);
-  findMatchesAtSameIndex(drinkVars, spilledDrink, colorVars, spilledDrinkDressColor);
+  requireMatchesAtSameIndex(drinkVars, spilledDrink, colorVars, spilledDrinkDressColor);
 
   // jumped up onto the table falling onto the guest in the center seat,
   // spilling the poor woman's [drink]
@@ -281,49 +281,49 @@ function solve(options) {
   // [city].
   const storyTellerPerson = optionId(options.storyTellerPerson, people);
   const storyTellerCity = optionId(options.storyTellerCity, cities);
-  findMatchesAtSameIndex(cityVars, storyTellerCity, peopleVars, storyTellerPerson);
+  requireMatchesAtSameIndex(cityVars, storyTellerCity, peopleVars, storyTellerPerson);
 
   // The traveler from [city] was dressed entirely in [color].
   const entireDressColor = optionId(options.entireDressColor, colors);
   const entireDressCity = optionId(options.entireDressCity, cities);
-  findMatchesAtSameIndex(colorVars, entireDressColor, cityVars, entireDressCity);
+  requireMatchesAtSameIndex(colorVars, entireDressColor, cityVars, entireDressCity);
 
   // [Character] raised her [drink] in toast.
   const toastPerson = optionId(options.toastPerson, people);
   const toastDrink = optionId(options.toastDrink, drinks);
-  findMatchesAtSameIndex(peopleVars, toastPerson, drinkVars, toastDrink);
+  requireMatchesAtSameIndex(peopleVars, toastPerson, drinkVars, toastDrink);
 
   // The lady from [city], full of [drink], jumped up onto the table
   const tableJumperCity = optionId(options.tableJumperCity, cities);
   const tableJumperDrink = optionId(options.tableJumperDrink, drinks);
-  findMatchesAtSameIndex(cityVars, tableJumperCity, drinkVars, tableJumperDrink);
+  requireMatchesAtSameIndex(cityVars, tableJumperCity, drinkVars, tableJumperDrink);
 
   // So [character] showed off a prized [heirloom]
   const prizedHeirloomOwner = optionId(options.prizedHeirloomOwner, people);
   const prizedHeirloom = optionId(options.prizedHeirloom, heirlooms);
-  findMatchesAtSameIndex(peopleVars, prizedHeirloomOwner, heirloomVars, prizedHeirloom);
+  requireMatchesAtSameIndex(peopleVars, prizedHeirloomOwner, heirloomVars, prizedHeirloom);
 
   // at which the lady from [city] scoffed, saying it was no match for her
   // [heirloom].
   const scoffingLadyCity = optionId(options.scoffingLadyCity, cities);
   const scoffingLadyHeirloom = optionId(options.scoffingLadyHeirloom, heirlooms);
-  findMatchesAtSameIndex(cityVars, scoffingLadyCity, heirloomVars, scoffingLadyHeirloom);
+  requireMatchesAtSameIndex(cityVars, scoffingLadyCity, heirloomVars, scoffingLadyHeirloom);
 
   // Someone else carried a valuable [heirloom] and when she saw it, the
   // visitor from [city] next to her
   const valuableHeirloom = optionId(options.valuableHeirloom, heirlooms);
   const visitorsCity = optionId(options.visitorsCity, cities);
-  findMatchesAtSingleIndexDistance(heirloomVars, valuableHeirloom, cityVars, visitorsCity);
+  requireMatchesWithinSingleIndex(heirloomVars, valuableHeirloom, cityVars, visitorsCity);
 
   // the visitor from [city] next to her almost spilled her neighbor's [drink].
   const spilledNextToVisitorDrink = optionId(options.spilledNextToVisitorDrink, drinks);
-  findMatchesAtSingleIndexDistance(cityVars, visitorsCity, drinkVars, spilledNextToVisitorDrink);
+  requireMatchesWithinSingleIndex(cityVars, visitorsCity, drinkVars, spilledNextToVisitorDrink);
 
   // When one of the dinner guests bragged about her [heirloom], the woman next
   // to her said they were finer in [city], where she lived.
   const braggedAboutHeirloom = optionId(options.braggedAboutHeirloom, heirlooms);
   const finerHeirloomCity = optionId(options.finerHeirloomCity, cities);
-  findMatchesAtSingleIndexDistance(heirloomVars, braggedAboutHeirloom, cityVars, finerHeirloomCity);
+  requireMatchesWithinSingleIndex(heirloomVars, braggedAboutHeirloom, cityVars, finerHeirloomCity);
 
   const solution = solver.solve();
   if (solution === null) {
