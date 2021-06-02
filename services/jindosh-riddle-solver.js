@@ -97,44 +97,46 @@ function solve(options) {
     };
   }
 
-  const personA = Logic.variableBits("personA", 4);
-  const personB = Logic.variableBits("personB", 4);
-  const personC = Logic.variableBits("personC", 4);
-  const personD = Logic.variableBits("personD", 4);
-  const personE = Logic.variableBits("personE", 4);
+  const numBits = 3;
+
+  const personA = Logic.variableBits("personA", numBits);
+  const personB = Logic.variableBits("personB", numBits);
+  const personC = Logic.variableBits("personC", numBits);
+  const personD = Logic.variableBits("personD", numBits);
+  const personE = Logic.variableBits("personE", numBits);
   const peopleVars = [personA, personB, personC, personD, personE];
 
-  const colorA = Logic.variableBits("colorA", 4);
-  const colorB = Logic.variableBits("colorB", 4);
-  const colorC = Logic.variableBits("colorC", 4);
-  const colorD = Logic.variableBits("colorD", 4);
-  const colorE = Logic.variableBits("colorE", 4);
+  const colorA = Logic.variableBits("colorA", numBits);
+  const colorB = Logic.variableBits("colorB", numBits);
+  const colorC = Logic.variableBits("colorC", numBits);
+  const colorD = Logic.variableBits("colorD", numBits);
+  const colorE = Logic.variableBits("colorE", numBits);
   const colorVars = [colorA, colorB, colorC, colorD, colorE];
 
-  const drinkA = Logic.variableBits("drinkA", 4);
-  const drinkB = Logic.variableBits("drinkB", 4);
-  const drinkC = Logic.variableBits("drinkC", 4);
-  const drinkD = Logic.variableBits("drinkD", 4);
-  const drinkE = Logic.variableBits("drinkE", 4);
+  const drinkA = Logic.variableBits("drinkA", numBits);
+  const drinkB = Logic.variableBits("drinkB", numBits);
+  const drinkC = Logic.variableBits("drinkC", numBits);
+  const drinkD = Logic.variableBits("drinkD", numBits);
+  const drinkE = Logic.variableBits("drinkE", numBits);
   const drinkVars = [drinkA, drinkB, drinkC, drinkD, drinkE];
 
-  const cityA = Logic.variableBits("cityA", 4);
-  const cityB = Logic.variableBits("cityB", 4);
-  const cityC = Logic.variableBits("cityC", 4);
-  const cityD = Logic.variableBits("cityD", 4);
-  const cityE = Logic.variableBits("cityE", 4);
+  const cityA = Logic.variableBits("cityA", numBits);
+  const cityB = Logic.variableBits("cityB", numBits);
+  const cityC = Logic.variableBits("cityC", numBits);
+  const cityD = Logic.variableBits("cityD", numBits);
+  const cityE = Logic.variableBits("cityE", numBits);
   const cityVars = [cityA, cityB, cityC, cityD, cityE];
 
-  const heirloomA = Logic.variableBits("heirloomA", 4);
-  const heirloomB = Logic.variableBits("heirloomB", 4);
-  const heirloomC = Logic.variableBits("heirloomC", 4);
-  const heirloomD = Logic.variableBits("heirloomD", 4);
-  const heirloomE = Logic.variableBits("heirloomE", 4);
+  const heirloomA = Logic.variableBits("heirloomA", numBits);
+  const heirloomB = Logic.variableBits("heirloomB", numBits);
+  const heirloomC = Logic.variableBits("heirloomC", numBits);
+  const heirloomD = Logic.variableBits("heirloomD", numBits);
+  const heirloomE = Logic.variableBits("heirloomE", numBits);
   const heirloomVars = [heirloomA, heirloomB, heirloomC, heirloomD, heirloomE];
 
   const solver = new Logic.Solver();
 
-  const findMatchesAtSameIndex = (varsA, valueA, varsB, valueB) => {
+  const requireMatchesAtSameIndex = (varsA, valueA, varsB, valueB) => {
     solver.require(
       Logic.or(
         Logic.and(
@@ -161,7 +163,7 @@ function solve(options) {
     );
   };
 
-  const findMatchesAtSingleIndexDistance = (varsA, valueA, varsB, valueB) => {
+  const requireMatchesWithinSingleIndex = (varsA, valueA, varsB, valueB) => {
     solver.require(
       Logic.or(
         Logic.and(
@@ -199,8 +201,8 @@ function solve(options) {
 
   const withinRange = (vars, lowerBound, upperBound) => {
     for (let i = 0; i < vars.length; i++) {
-      solver.require(Logic.greaterThanOrEqual(vars[i], Logic.constantBits(lowerBound)));
-      solver.require(Logic.lessThanOrEqual(vars[i], Logic.constantBits(upperBound)));
+      solver.require(Logic.greaterThanOrEqual(vars[i], lowerBound));
+      solver.require(Logic.lessThanOrEqual(vars[i], upperBound));
     }
   };
 
@@ -214,11 +216,13 @@ function solve(options) {
     }
   };
 
-  withinRange(peopleVars, 0, 4);
-  withinRange(colorVars, 0, 4);
-  withinRange(drinkVars, 0, 4);
-  withinRange(cityVars, 0, 4);
-  withinRange(heirloomVars, 0, 4);
+  const lowerBound = Logic.constantBits(0);
+  const upperBound = Logic.constantBits(4);
+  withinRange(peopleVars, lowerBound, upperBound);
+  withinRange(colorVars, lowerBound, upperBound);
+  withinRange(drinkVars, lowerBound, upperBound);
+  withinRange(cityVars, lowerBound, upperBound);
+  withinRange(heirloomVars, lowerBound, upperBound);
 
   allDifferent(peopleVars);
   allDifferent(colorVars);
@@ -261,12 +265,12 @@ function solve(options) {
   // [character] wore a jaunty [color] hat
   const jauntyHatPerson = optionId(options.jauntyHatPerson, people);
   const jauntyHatColor = optionId(options.jauntyHatColor, colors);
-  findMatchesAtSameIndex(colorVars, jauntyHatColor, peopleVars, jauntyHatPerson);
+  requireMatchesAtSameIndex(colorVars, jauntyHatColor, peopleVars, jauntyHatPerson);
 
   // I remember that [color] outfit because the woman spilled her [drink] all over it.
   const spilledDrink = optionId(options.spilledDrink, drinks);
   const spilledDrinkDressColor = optionId(options.spilledDrinkDressColor, colors);
-  findMatchesAtSameIndex(drinkVars, spilledDrink, colorVars, spilledDrinkDressColor);
+  requireMatchesAtSameIndex(drinkVars, spilledDrink, colorVars, spilledDrinkDressColor);
 
   // jumped up onto the table falling onto the guest in the center seat,
   // spilling the poor woman's [drink]
@@ -279,49 +283,49 @@ function solve(options) {
   // [city].
   const storyTellerPerson = optionId(options.storyTellerPerson, people);
   const storyTellerCity = optionId(options.storyTellerCity, cities);
-  findMatchesAtSameIndex(cityVars, storyTellerCity, peopleVars, storyTellerPerson);
+  requireMatchesAtSameIndex(cityVars, storyTellerCity, peopleVars, storyTellerPerson);
 
   // The traveler from [city] was dressed entirely in [color].
   const entireDressColor = optionId(options.entireDressColor, colors);
   const entireDressCity = optionId(options.entireDressCity, cities);
-  findMatchesAtSameIndex(colorVars, entireDressColor, cityVars, entireDressCity);
+  requireMatchesAtSameIndex(colorVars, entireDressColor, cityVars, entireDressCity);
 
   // [Character] raised her [drink] in toast.
   const toastPerson = optionId(options.toastPerson, people);
   const toastDrink = optionId(options.toastDrink, drinks);
-  findMatchesAtSameIndex(peopleVars, toastPerson, drinkVars, toastDrink);
+  requireMatchesAtSameIndex(peopleVars, toastPerson, drinkVars, toastDrink);
 
   // The lady from [city], full of [drink], jumped up onto the table
   const tableJumperCity = optionId(options.tableJumperCity, cities);
   const tableJumperDrink = optionId(options.tableJumperDrink, drinks);
-  findMatchesAtSameIndex(cityVars, tableJumperCity, drinkVars, tableJumperDrink);
+  requireMatchesAtSameIndex(cityVars, tableJumperCity, drinkVars, tableJumperDrink);
 
   // So [character] showed off a prized [heirloom]
   const prizedHeirloomOwner = optionId(options.prizedHeirloomOwner, people);
   const prizedHeirloom = optionId(options.prizedHeirloom, heirlooms);
-  findMatchesAtSameIndex(peopleVars, prizedHeirloomOwner, heirloomVars, prizedHeirloom);
+  requireMatchesAtSameIndex(peopleVars, prizedHeirloomOwner, heirloomVars, prizedHeirloom);
 
   // at which the lady from [city] scoffed, saying it was no match for her
   // [heirloom].
   const scoffingLadyCity = optionId(options.scoffingLadyCity, cities);
   const scoffingLadyHeirloom = optionId(options.scoffingLadyHeirloom, heirlooms);
-  findMatchesAtSameIndex(cityVars, scoffingLadyCity, heirloomVars, scoffingLadyHeirloom);
+  requireMatchesAtSameIndex(cityVars, scoffingLadyCity, heirloomVars, scoffingLadyHeirloom);
 
   // Someone else carried a valuable [heirloom] and when she saw it, the
   // visitor from [city] next to her
   const valuableHeirloom = optionId(options.valuableHeirloom, heirlooms);
   const visitorsCity = optionId(options.visitorsCity, cities);
-  findMatchesAtSingleIndexDistance(heirloomVars, valuableHeirloom, cityVars, visitorsCity);
+  requireMatchesWithinSingleIndex(heirloomVars, valuableHeirloom, cityVars, visitorsCity);
 
   // the visitor from [city] next to her almost spilled her neighbor's [drink].
   const spilledNextToVisitorDrink = optionId(options.spilledNextToVisitorDrink, drinks);
-  findMatchesAtSingleIndexDistance(cityVars, visitorsCity, drinkVars, spilledNextToVisitorDrink);
+  requireMatchesWithinSingleIndex(cityVars, visitorsCity, drinkVars, spilledNextToVisitorDrink);
 
   // When one of the dinner guests bragged about her [heirloom], the woman next
   // to her said they were finer in [city], where she lived.
   const braggedAboutHeirloom = optionId(options.braggedAboutHeirloom, heirlooms);
   const finerHeirloomCity = optionId(options.finerHeirloomCity, cities);
-  findMatchesAtSingleIndexDistance(heirloomVars, braggedAboutHeirloom, cityVars, finerHeirloomCity);
+  requireMatchesWithinSingleIndex(heirloomVars, braggedAboutHeirloom, cityVars, finerHeirloomCity);
 
   const solution = solver.solve();
   if (solution === null) {

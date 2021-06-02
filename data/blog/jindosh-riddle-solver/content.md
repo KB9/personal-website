@@ -1,353 +1,572 @@
-# Markdown: Syntax
+*If you just want to generate a solution to the riddle instead of reading about
+the implementation, [click here](/blog/jindosh-riddle-solver-app). Otherwise
+read on!*
 
-*   [Overview](#overview)
-    *   [Philosophy](#philosophy)
-    *   [Inline HTML](#html)
-    *   [Automatic Escaping for Special Characters](#autoescape)
-*   [Block Elements](#block)
-    *   [Paragraphs and Line Breaks](#p)
-    *   [Headers](#header)
-    *   [Blockquotes](#blockquote)
-    *   [Lists](#list)
-    *   [Code Blocks](#precode)
-    *   [Horizontal Rules](#hr)
-*   [Span Elements](#span)
-    *   [Links](#link)
-    *   [Emphasis](#em)
-    *   [Code](#code)
-    *   [Images](#img)
-*   [Miscellaneous](#misc)
-    *   [Backslash Escapes](#backslash)
-    *   [Automatic Links](#autolink)
-
-
-**Note:** This document is itself written using Markdown; you
-can [see the source for it by adding '.text' to the URL](/projects/markdown/syntax.text).
-
-----
-
-## Overview
-
-### Philosophy
-
-Markdown is intended to be as easy-to-read and easy-to-write as is feasible.
-
-Readability, however, is emphasized above all else. A Markdown-formatted
-document should be publishable as-is, as plain text, without looking
-like it's been marked up with tags or formatting instructions. While
-Markdown's syntax has been influenced by several existing text-to-HTML
-filters -- including [Setext](http://docutils.sourceforge.net/mirror/setext.html), [atx](http://www.aaronsw.com/2002/atx/), [Textile](http://textism.com/tools/textile/), [reStructuredText](http://docutils.sourceforge.net/rst.html),
-[Grutatext](http://www.triptico.com/software/grutatxt.html), and [EtText](http://ettext.taint.org/doc/) -- the single biggest source of
-inspiration for Markdown's syntax is the format of plain text email.
-
-## Block Elements
-
-### Paragraphs and Line Breaks
-
-A paragraph is simply one or more consecutive lines of text, separated
-by one or more blank lines. (A blank line is any line that looks like a
-blank line -- a line containing nothing but spaces or tabs is considered
-blank.) Normal paragraphs should not be indented with spaces or tabs.
-
-The implication of the "one or more consecutive lines of text" rule is
-that Markdown supports "hard-wrapped" text paragraphs. This differs
-significantly from most other text-to-HTML formatters (including Movable
-Type's "Convert Line Breaks" option) which translate every line break
-character in a paragraph into a `<br />` tag.
-
-When you *do* want to insert a `<br />` break tag using Markdown, you
-end a line with two or more spaces, then type return.
-
-### Headers
-
-Markdown supports two styles of headers, [Setext] [1] and [atx] [2].
-
-Optionally, you may "close" atx-style headers. This is purely
-cosmetic -- you can use this if you think it looks better. The
-closing hashes don't even need to match the number of hashes
-used to open the header. (The number of opening hashes
-determines the header level.)
-
-
-### Blockquotes
-
-Markdown uses email-style `>` characters for blockquoting. If you're
-familiar with quoting passages of text in an email message, then you
-know how to create a blockquote in Markdown. It looks best if you hard
-wrap the text and put a `>` before every line:
-
-> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
-> consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
-> Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-> 
-> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-> id sem consectetuer libero luctus adipiscing.
-
-Markdown allows you to be lazy and only put the `>` before the first
-line of a hard-wrapped paragraph:
-
-> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
-consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
-Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-
-> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
-id sem consectetuer libero luctus adipiscing.
-
-Blockquotes can be nested (i.e. a blockquote-in-a-blockquote) by
-adding additional levels of `>`:
-
-> This is the first level of quoting.
+> ## The Jindosh Riddle
 >
-> > This is nested blockquote.
+> At the dinner party were Lady Winslow, Doctor Marcolla, Countess Contee,
+> Madam Natsiou, and Baroness Finch.
 >
-> Back to the first level.
-
-Blockquotes can contain other Markdown elements, including headers, lists,
-and code blocks:
-
-> ## This is a header.
-> 
-> 1.   This is the first list item.
-> 2.   This is the second list item.
-> 
-> Here's some example code:
-> 
->     return shell_exec("echo $input | $markdown_script");
-
-Any decent text editor should make email-style quoting easy. For
-example, with BBEdit, you can make a selection and choose Increase
-Quote Level from the Text menu.
-
-
-### Lists
-
-Markdown supports ordered (numbered) and unordered (bulleted) lists.
-
-Unordered lists use asterisks, pluses, and hyphens -- interchangably
--- as list markers:
-
-*   Red
-*   Green
-*   Blue
-
-is equivalent to:
-
-+   Red
-+   Green
-+   Blue
-
-and:
-
--   Red
--   Green
--   Blue
-
-Ordered lists use numbers followed by periods:
-
-1.  Bird
-2.  McHale
-3.  Parish
-
-It's important to note that the actual numbers you use to mark the
-list have no effect on the HTML output Markdown produces. The HTML
-Markdown produces from the above list is:
-
-If you instead wrote the list in Markdown like this:
-
-1.  Bird
-1.  McHale
-1.  Parish
-
-or even:
-
-3. Bird
-1. McHale
-8. Parish
-
-you'd get the exact same HTML output. The point is, if you want to,
-you can use ordinal numbers in your ordered Markdown lists, so that
-the numbers in your source match the numbers in your published HTML.
-But if you want to be lazy, you don't have to.
-
-To make lists look nice, you can wrap items with hanging indents:
-
-*   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-    Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
-    viverra nec, fringilla in, laoreet vitae, risus.
-*   Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-    Suspendisse id sem consectetuer libero luctus adipiscing.
-
-But if you want to be lazy, you don't have to:
-
-*   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
-viverra nec, fringilla in, laoreet vitae, risus.
-*   Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
-Suspendisse id sem consectetuer libero luctus adipiscing.
-
-List items may consist of multiple paragraphs. Each subsequent
-paragraph in a list item must be indented by either 4 spaces
-or one tab:
-
-1.  This is a list item with two paragraphs. Lorem ipsum dolor
-    sit amet, consectetuer adipiscing elit. Aliquam hendrerit
-    mi posuere lectus.
-
-    Vestibulum enim wisi, viverra nec, fringilla in, laoreet
-    vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
-    sit amet velit.
-
-2.  Suspendisse id sem consectetuer libero luctus adipiscing.
-
-It looks nice if you indent every line of the subsequent
-paragraphs, but here again, Markdown will allow you to be
-lazy:
-
-*   This is a list item with two paragraphs.
-
-    This is the second paragraph in the list item. You're
-only required to indent the first line. Lorem ipsum dolor
-sit amet, consectetuer adipiscing elit.
-
-*   Another item in the same list.
-
-To put a blockquote within a list item, the blockquote's `>`
-delimiters need to be indented:
-
-*   A list item with a blockquote:
-
-    > This is a blockquote
-    > inside a list item.
-
-To put a code block within a list item, the code block needs
-to be indented *twice* -- 8 spaces or two tabs:
-
-*   A list item with a code block:
-
-        <code goes here>
-
-### Code Blocks
-
-Pre-formatted code blocks are used for writing about programming or
-markup source code. Rather than forming normal paragraphs, the lines
-of a code block are interpreted literally. Markdown wraps a code block
-in both `<pre>` and `<code>` tags.
-
-To produce a code block in Markdown, simply indent every line of the
-block by at least 4 spaces or 1 tab.
-
-This is a normal paragraph:
-
-    This is a code block.
-
-Here is an example of AppleScript:
-
-    tell application "Foo"
-        beep
-    end tell
-
-A code block continues until it reaches a line that is not indented
-(or the end of the article).
-
-Within a code block, ampersands (`&`) and angle brackets (`<` and `>`)
-are automatically converted into HTML entities. This makes it very
-easy to include example HTML source code using Markdown -- just paste
-it and indent it, and Markdown will handle the hassle of encoding the
-ampersands and angle brackets. For example, this:
-
-    <div class="footer">
-        &copy; 2004 Foo Corporation
-    </div>
-
-Regular Markdown syntax is not processed within code blocks. E.g.,
-asterisks are just literal asterisks within a code block. This means
-it's also easy to use Markdown to write about Markdown's own syntax.
-
-```
-tell application "Foo"
-    beep
-end tell
-```
-
-## Span Elements
-
-### Links
-
-Markdown supports two style of links: *inline* and *reference*.
-
-In both styles, the link text is delimited by [square brackets].
-
-To create an inline link, use a set of regular parentheses immediately
-after the link text's closing square bracket. Inside the parentheses,
-put the URL where you want the link to point, along with an *optional*
-title for the link, surrounded in quotes. For example:
-
-This is [an example](http://example.com/) inline link.
-
-[This link](http://example.net/) has no title attribute.
-
-### Emphasis
-
-Markdown treats asterisks (`*`) and underscores (`_`) as indicators of
-emphasis. Text wrapped with one `*` or `_` will be wrapped with an
-HTML `<em>` tag; double `*`'s or `_`'s will be wrapped with an HTML
-`<strong>` tag. E.g., this input:
-
-*single asterisks*
-
-_single underscores_
-
-**double asterisks**
-
-__double underscores__
-
-### Code
-
-To indicate a span of code, wrap it with backtick quotes (`` ` ``).
-Unlike a pre-formatted code block, a code span indicates code within a
-normal paragraph. For example:
-
-Use the `printf()` function.
-
-## Math
-
-Lift($L$) can be determined by Lift Coefficient ($C_L$) like the following
-equation.
+> The women sat in a row. They all wore different colors and Doctor Marcolla
+> wore a jaunty white hat. Baroness Finch was at the far left, next to the
+> guest wearing a blue jacket. The lady in red sat left of someone in green.
+> I remember that red outfit because the woman spilled her absinthe all over
+> it. The traveler from Karnaca was dressed entirely in purple. When one of the
+> dinner guests bragged about her Ring, the woman next to her said they
+> were finer in Karnaca, where she lived.
+>
+> So Countess Contee showed off a prized Snuff Tin, at which the lady from
+> Baleton scoffed, saying it was no match for her Diamond. Someone else carried
+> a valuable War Medal and when she saw it, the visitor from Dabokva next to
+> her almost spilled her neighbor's rum. Madam Natsiou raised her wine in
+> toast. The lady from Fraeport, full of whiskey, jumped up onto the table
+> falling onto the guest in the center seat, spilling the poor woman's beer.
+> Then Lady Winslow captivated them all with a story about her wild youth in
+> Dunwall.
+>
+> In the morning there were four heirlooms under the table: the Ring, Bird
+> Pendant, the Diamond, and the War Medal.
+>
+> But who owned each?
+
+The solution to this riddle is required to advance to the next level. You have
+two choices to find the solution:
+1. Waste an enormous amount of time trying to solve the riddle for yourself.
+2. Actually play the game to find a note containing the solution.
+
+This wouldn't be a very good blog post if I took the latter option.
+
+An interesting feature of this riddle is that it is different for each
+playthrough of the game. The position of each person at the table, the colour
+of their dress, the drink they have, and a couple of other properties change
+depending on what version of the riddle you get. This means that there is no
+single solution that will work for everyone's playthrough.
+
+## What is a Boolean Satisfiability Problem (SAT)?
+
+Imagine we have two Boolean variables $A$ and $B$, and a formula $F$ which uses
+these variables. The goal is to find the values of $A$ and $B$ that make $F$
+`true`. If there exists values that can make $F$ `true`, we say that $F$ is
+satisfiable.
+
+An example of a satisfiable formula is the logical AND (written $\land$) of
+these variables:
 
 $$
-L = \frac{1}{2} \rho v^2 S C_L
+F = A \land B
 $$
 
-## Syntax Highlighting
+If all variables are `true`, then $F$ evaluates to `true`, making $F$
+satisfiable. However, if we append a `false` to this formula:
 
-```cpp
-#include <iostream>
-using namespace std;
+$$
+F = A \land B \land 0
+$$
 
-int main() {
-    int i, n;
-    bool isPrime = true;
+$F$ will **always** evaluate to `false` making this formula unsatisfiable.
+Solving a Boolean satisfiability problem can thus be broken down into two
+parts:
+1. Can the formula $F$ ever evaluate to `true` (i.e. is it satisfiable)?
+2. If it can, what values of $A$ and $B$ cause it to be `true`?
 
-    cout << "Enter a positive integer: ";
-    cin >> n;
+## SAT Solvers
 
-    // 0 and 1 are not prime numbers
-    if (n == 0 || n == 1) {
-        isPrime = false;
-    }
-    else {
-        for (i = 2; i <= n / 2; ++i) {
-            if (n % i == 0) {
-                isPrime = false;
-                break;
-            }
-        }
-    }
-    if (isPrime)
-        cout << n << " is a prime number";
-    else
-        cout << n << " is not a prime number";
+SAT is an NP-complete problem. A key characteristic of NP-complete problems is
+that only algorithms with exponential worst-case complexity are known for
+solving them. When solving NP-complete problems involving potentially thousands
+of variables and conditions, conventional algorithmic approaches become
+impractical to use.
 
-    return 0;
+In spite of this, efficient algorithms have been developed for SAT which can
+scale to solve problems involving a high number of variables and constraints.
+An example of a collection of such algorithms is the SAT solver
+[MiniSAT](http://minisat.se).
+
+MiniSAT is a small but efficient SAT solver which accepts formulas expressed in
+conjunctive normal form (CNF), and outputs whether the formula is satisfiable
+or not along with the values which satisfy the formula.
+
+Boolean formulas expressed in CNF consist of a conjunction (logical AND written
+as $\land$) of clauses, with each clause being a disjunction (logical OR
+written as $\lor$) of literals. Some examples of formulas in CNF include:
+
+- $(A \lor B) \land (C \lor D)$
+- $(A \lor B) \land C$
+- $(A \lor B)$
+- $A$
+
+Few problems can be naturally expressed in CNF, and the Jindosh Riddle is no
+exception. We could apply
+[De Morgan's laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) to express
+it in this way, though we'd still have to convert it to the DIMACS file format
+expected by MiniSAT.
+
+Rather than wasting time performing these steps, we will use
+[Logic Solver](https://github.com/meteor/logic-solver). Logic Solver is
+responsible for taking arbitrary Boolean formulas and converting these into
+CNF. Internally, Logic Solver uses MiniSAT to determine satisfiability and the
+values in a solution.
+
+## Modelling the Jindosh Riddle using SAT
+
+When modelling a Boolean satisfiability problem, there are two key components
+we need to consider:
+1. What are the variables?
+2. What are the constraints on those variables?
+
+Variables are the unknowns in the problem. **The goal of solving the problem is
+to assign a value to each of these variables**. In the formula
+$F = A \land B$, the variables we would need to find values for are $A$ and
+$B$. In the Jindosh Riddle, the variables we want to find values for are the
+people who own each heirloom. However, these are not the only variables we can
+use to find a solution.
+
+A constraint defines the allowed combination of values for a set of variables.
+In the formula $F = A \land B$, the variables $A$ and $B$ are both constrained
+to be `true` by the $\land$ relationship. An example of a constraint in the
+Jindosh Riddle is:
+
+> Baroness Finch was at the far left
+
+This constraint specifies that the variable representing the person at the far
+left of the table **must** have a value which is equal to the value
+representing Baroness Finch. As we will see later in this post, we can express
+statements like these as a Boolean formula.
+
+## The Jindosh Riddle Formula
+
+### Solver
+
+The `Solver` object maintains a list of formulas that must be true (or false),
+which you can think of as a list of constraints. Each `Solver` instance embeds
+a self-contained MiniSat instance, which learns and remembers facts that are
+derived from the constraints.
+
+```js
+const solver = new Logic.Solver();
+```
+
+When we define constraints later, we will add them to this `solver` instance.
+
+### Variables
+
+The first thing to consider is how we represent the variables in the Jindosh
+Riddle. We know that there are five seats at the table, and that each seat
+will have one item from the following categories:
+
+- A person
+- A city of residence
+- A colour of clothing
+- A drink
+- An heirloom
+
+If we were to visualise this, it would look something like this:
+```jindosh-grid
+{
+  "cols": 6,
+  "rows": 6,
+  "topHeaders": ["Seat A", "Seat B", "Seat C", "Seat D", "Seat E"],
+  "leftHeaders": ["Person", "City", "Colour", "Drink", "Heirloom"]
 }
 ```
+
+Solving the Jindosh Riddle is therefore just a problem of deciding what values
+go where in this grid. Though what values will we use?
+
+When modelling a problem such as this, we tend to use integer variables. More
+specifically, we can uniquely represent each item in the five identified
+categories using unique integer variables as IDs. For example, if we were to do
+this for each person:
+
+- Lady Winslow = $0$
+- Doctor Marcolla = $1$
+- Countess Contee = $2$
+- Madam Natsiou = $3$
+- Baroness Finch = $4$
+
+This means we can represent each category as an integer array with five
+unique values representing each item at a particular seat. However, we have
+no way of knowing where these values will end up in each array without solving
+the problem first. With Logic Solver, we model such an array like so (using
+people as an example):
+
+```js
+const personA = Logic.variableBits("personA", 3);
+const personB = Logic.variableBits("personB", 3);
+const personC = Logic.variableBits("personC", 3);
+const personD = Logic.variableBits("personD", 3);
+const personE = Logic.variableBits("personE", 3);
+const peopleVars = [personA, personB, personC, personD, personE];
+```
+
+In essence, this simply creates an array with space for five integers. This is
+repeated for every category until there are five variable arrays:
+
+- `peopleVars`
+- `colorVars`
+- `drinkVars`
+- `cityVars`
+- `heirloomVars`
+
+### Integers!? Those aren't Boolean Variables
+
+You may have noticed the strange syntax for creating an integer variable:
+
+```js
+const variable = Logic.variableBits("label", 3);
+```
+
+With Logic Solver, integer variables are represented as a group of bits. In the
+example above, we're defining a variable which can hold a value consisting of 3
+bits. Each of these bits can be treated as a Boolean variable, allowing their
+use in a Boolean formula. For example, if we wanted an integer variable $X$ to
+be equal to the number 2 (with bits $010$), we'd write a Boolean formula such
+as this:
+
+$$
+F = \neg X_0 \land X_1 \land \neg X_3
+$$
+
+Thankfully, Logic Solver abstracts all of this complexity away for us. We can
+use its API to express constraints on integer variables using operators such as
+equality or greater/less-than without worrying about how to map these to the
+individual bits as a Boolean formula.
+
+You may wonder why only 3 bits are used to represent our integer variables.
+Given that we are mapping each item to an integer value ID in the 0-4 range for
+each category, we only need 3 bits to represent all of these values.
+
+### Bounded Domain
+
+The first constraint to apply to the integer variables within an array is to
+specify a bounded domain. This will ensure that the integer values found in a
+solution are within the $[0, 4]$ range. These values can then be associated
+with the item IDs we are using. Without this, incorrect solutions
+containing values such as $5$, $6$, or $7$ would be considered valid (since
+these values can also be represented with 3 bits).
+
+```js
+const withinRange = (vars, lowerBound, upperBound) => {
+  for (let i = 0; i < vars.length; i++) {
+    solver.require(Logic.greaterThanOrEqual(vars[i], lowerBound));
+    solver.require(Logic.lessThanOrEqual(vars[i], upperBound));
+  }
+};
+
+const lowerBound = Logic.constantBits(0);
+const upperBound = Logic.constantBits(4);
+withinRange(peopleVars, lowerBound, upperBound);
+withinRange(colorVars, lowerBound, upperBound);
+withinRange(drinkVars, lowerBound, upperBound);
+withinRange(cityVars, lowerBound, upperBound);
+withinRange(heirloomVars, lowerBound, upperBound);
+```
+
+### Distinct Values
+
+We want to ensure that each item can only be present at one seat. To do so,
+we specify that the values in each category array must be different from one
+another (i.e. they must all be unique). We can specify this constraint as:
+
+```js
+const allDifferent = (vars) => {
+  for (let i = 0; i < vars.length; i++) {
+    for (let j = 0; j < vars.length; j++) {
+      if (i !== j) {
+        solver.forbid(Logic.equalBits(vars[i], vars[j]));
+      }
+    }
+  }
+};
+
+allDifferent(peopleVars);
+allDifferent(colorVars);
+allDifferent(drinkVars);
+allDifferent(cityVars);
+allDifferent(heirloomVars);
+```
+
+### Items with Specified Positions
+
+In the riddle, the positions of a few items are given. One example of this is:
+
+> Baroness Finch was at the far left, next to the guest wearing a blue jacket.
+
+We treat the first index in the arrays as the far left side of the table, and
+the last index as the far right side. We use this to constrain the value of
+the integer at index 0 in the `peopleVars` array to the integer value
+representing Baroness Finch:
+
+```js
+solver.require(Logic.equalBits(peopleVars[0], finch));
+```
+
+Given that Baroness Finch is at index 0, the integer value representing the
+blue jacket can only be at index 1 in the `colorVars` array:
+
+```js
+solver.require(Logic.equalBits(colorVars[1], blue));
+```
+
+Another clue gives the location of a drink at the table:
+
+> ...falling onto the guest in the center seat, spilling the poor woman's beer.
+
+We constrain the value at index 2 in the `drinksVar` array to be equal to the
+integer value representing the beer:
+
+```js
+solver.require(Logic.equalBits(drinkVars[2], beer));
+```
+
+If we visualise the effect of these constraints on the values in our grid:
+```jindosh-grid
+{
+  "cols": 6,
+  "rows": 6,
+  "topHeaders": ["Seat A", "Seat B", "Seat C", "Seat D", "Seat E"],
+  "leftHeaders": ["Person", "City", "Colour", "Drink", "Heirloom"],
+  "cellContents": {
+    "7": "Finch",
+    "20": "blue",
+    "27": "beer"
+  }
+}
+```
+
+Unfortunately, these are the only constraints which concretely tell us where
+each item is at the table. However, we can use information about the relative
+positioning of items to work out a unique solution.
+
+### Items at the Same Table Position
+
+Throughout the riddle, associations are made between the positions of items
+in different categories with statements such as:
+
+> Doctor Marcolla wore a jaunty white hat.
+
+> I remember that red outfit because the woman spilled her absinthe all over
+> it.
+
+> The traveler from Karnaca was dressed entirely in purple.
+
+While we can't pinpoint the precise position of these items at the table, we
+know that they will be at the same position. For example, we know that Doctor
+Marcolla and the white hat will be at the same position. What we mean by this
+is that the value representing Doctor Marcolla in the `peopleVars` array will
+have the same index as the value representing white in the `colorVars` array.
+If we were to express this for index 0 only (the left-most seat), it would look
+like this:
+
+```js
+Logic.and(
+  Logic.equalBits(varsA[0], white),
+  Logic.equalBits(varsB[0], marcolla)
+)
+```
+
+To apply this constraint for all indices, we simply OR this constraint over all
+possible positions. We can express this as a generic constraint like so:
+
+```js
+const requireMatchesAtSameIndex = (varsA, valueA, varsB, valueB) => {
+  solver.require(
+    Logic.or(
+      Logic.and(
+        Logic.equalBits(varsA[0], valueA),
+        Logic.equalBits(varsB[0], valueB)
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[1], valueA),
+        Logic.equalBits(varsB[1], valueB)
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[2], valueA),
+        Logic.equalBits(varsB[2], valueB)
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[3], valueA),
+        Logic.equalBits(varsB[3], valueB)
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[4], valueA),
+        Logic.equalBits(varsB[4], valueB)
+      )
+    )
+  );
+};
+```
+
+We can then apply this constraint for every item which belongs at the same
+position at the table. For the three statements mentioned previously:
+
+```js
+// Doctor Marcolla wore a jaunty white hat.
+requireMatchesAtSameIndex(colorVars, white, peopleVars, marcolla);
+// I remember that red outfit because the woman spilled her absinthe all over it.
+requireMatchesAtSameIndex(drinkVars, absinthe, colorVars, red);
+// The traveler from Karnaca was dressed entirely in purple.
+requireMatchesAtSameIndex(colorVars, purple, cityVars, karnaca);
+```
+
+In total, there are 8 statements in the riddle which constrain two items to be
+in the same place as one another. See if you can spot the other five!
+
+### The Colours Next to Each Other
+
+> The lady in red sat left of someone in green.
+
+Implementing this constraint follows the same reasoning with which we
+implemented the previous constraint. However, instead of constraining the red
+and green values to exist at the same index, we constrain the colour red to be
+at any possible `i-1`th index (left) of green:
+
+```js
+solver.require(
+  Logic.or(
+    Logic.and(
+      Logic.equalBits(colorVars[0], red),
+      Logic.equalBits(colorVars[1], green)
+    ),
+    Logic.and(
+      Logic.equalBits(colorVars[1], red),
+      Logic.equalBits(colorVars[2], green)
+    ),
+    Logic.and(
+      Logic.equalBits(colorVars[2], red),
+      Logic.equalBits(colorVars[3], green)
+    ),
+    Logic.and(
+      Logic.equalBits(colorVars[3], red),
+      Logic.equalBits(colorVars[4], green)
+    )
+  )
+);
+```
+
+### Items Beside Each Other at the Table
+
+> Someone else carried a valuable War Medal and when she saw it, the visitor
+> from Dabokva next to her...
+
+> ...the visitor from Dabokva next to her almost spilled her neighbor's rum.
+
+> When one of the dinner guests bragged about her Ring, the woman next
+> to her said they were finer in Karnaca, where she lived.
+
+These statements all indicate that the mentioned items are beside each other at
+the table. This constraint is a little trickier to write but is simply an
+extension of the previous constraint. Instead of constraining an item to be on
+one side of another item *only*, we extend it to allow another item to exist on
+either side (but not both sides - this would conflict with the `allDifferent`
+constraint we applied previously and would result in no viable solutions).
+Taking the Ring and Karnaca as an example:
+
+```js
+Logic.and(
+  Logic.equalBits(heirloomVars[i], ring),
+  Logic.or(
+    Logic.equalBits(cityVars[i-1], karnaca),
+    Logic.equalBits(cityVars[i+1], karnaca)
+  )
+);
+```
+
+This constraint covers most of the table but not all of it. We can't use this
+constraint for edge positions as `i-1` or `i+1` would exceed the bounds of the
+variable array. This would leave us with two seats at which the ring can never
+exist (according to our constraints). To account for these edge cases, we can
+use the following constraints:
+
+```js
+// Constraint for the ring at the left-most seat, with the person from Karnaca
+// to its right.
+Logic.and(
+  Logic.equalBits(heirloomVars[0], ring),
+  Logic.equalBits(cityVars[1], karnaca)
+);
+
+// OR constraint for the ring at the right-most seat, with the person from
+// Karnaca to its left.
+Logic.and(
+  Logic.equalBits(heirloomVars[4], ring),
+  Logic.equalBits(cityVars[3], karnaca)
+);
+```
+
+We can combine all of these constraints to give us a generic method for
+constraining two items of different categories to be beside each other at the
+table:
+
+```js
+const requireMatchesWithinSingleIndex = (varsA, valueA, varsB, valueB) => {
+  solver.require(
+    Logic.or(
+      Logic.and(
+        Logic.equalBits(varsA[0], valueA),
+        Logic.equalBits(varsB[1], valueB)
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[1], valueA),
+        Logic.or(
+          Logic.equalBits(varsB[0], valueB),
+          Logic.equalBits(varsB[2], valueB)
+        )
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[2], valueA),
+        Logic.or(
+          Logic.equalBits(varsB[1], valueB),
+          Logic.equalBits(varsB[3], valueB)
+        )
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[3], valueA),
+        Logic.or(
+          Logic.equalBits(varsB[2], valueB),
+          Logic.equalBits(varsB[4], valueB)
+        )
+      ),
+      Logic.and(
+        Logic.equalBits(varsA[4], valueA),
+        Logic.equalBits(varsB[3], valueB)
+      )
+    )
+  );
+};
+```
+
+This can then be applied to the relevant statements from the riddle:
+
+```js
+// Someone else carried a valuable War Medal and when she saw it, the visitor
+// from Dabokva next to her...
+requireMatchesWithinSingleIndex(heirloomVars, warMedal, cityVars, dabokva);
+// ...the visitor from Dabokva next to her almost spilled her neighbor's rum.
+requireMatchesWithinSingleIndex(cityVars, dabokva, drinkVars, rum);
+// When one of the dinner guests bragged about her Ring, the woman next to her
+// said they were finer in Karnaca, where she lived.
+requireMatchesWithinSingleIndex(heirloomVars, ring, cityVars, karnaca);
+```
+
+### The Solution
+
+Calling `solver.solve()` will find the first solution which satisfies all the
+specified constraints, or it will determine that no such solution is possible
+based off of our constraints. You've probably already guessed that a solution
+does exist:
+
+- Baroness Finch owns the War Medal
+- Madam Natsiou owns the Ring
+- Doctor Marcolla owns the Diamond
+- Lady Winslow owns the Bird Pendant
+- Countess Contee owns the Snuff Tin
+
+### Try it Out!
+
+I have implemented a [small demo](/blog/jindosh-riddle-solver-app) which
+implements the solver using the techniques discussed in this blog post. You can
+use it to solve any version of the Jindosh Riddle you find posted online (or
+while playing Dishonored 2). For convenience, the demo allows you to generate
+the version of the riddle at the beginning of this blog post so that you can see
+how it works.
