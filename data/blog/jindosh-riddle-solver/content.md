@@ -69,28 +69,6 @@ parts:
 1. Can the formula $F$ ever evaluate to `true` (i.e. is it satisfiable)?
 2. If it can, what values of $A$ and $B$ cause it to be `true`?
 
-## Modelling the Jindosh Riddle using SAT
-
-When modelling a Boolean satisfiability problem, there are two key components
-we need to consider:
-1. What are the variables?
-2. What are the constraints on those variables?
-
-Variables are the unknowns in the problem. **The goal of solving the problem is
-to assign a value to each of these variables**. In the Jindosh Riddle, the key
-variables we want to find are the people who own each heirloom. However, these
-are not the only variables we can use to find a solution.
-
-A constraint defines the allowed combination of values for a set of variables.
-For a valid solution to be found, all constraints must be adhered to. An
-example of a constraint in the Jindosh Riddle is:
-
-> Baroness Finch was at the far left
-
-This constraint specifies that the variable representing the person at the far
-left of the table **must** have a value which is equal to the value
-representing Baroness Finch.
-
 ## SAT Solvers
 
 SAT is an NP-complete problem. A key characteristic of NP-complete problems is
@@ -128,6 +106,32 @@ Rather than wasting time performing these steps, we will use
 responsible for taking arbitrary Boolean formulas and converting these into
 CNF. Internally, Logic Solver uses MiniSAT to determine satisfiability and the
 values in a solution.
+
+## Modelling the Jindosh Riddle using SAT
+
+When modelling a Boolean satisfiability problem, there are two key components
+we need to consider:
+1. What are the variables?
+2. What are the constraints on those variables?
+
+Variables are the unknowns in the problem. **The goal of solving the problem is
+to assign a value to each of these variables**. In the formula
+$F = A \land B$, the variables we would need to find values for are $A$ and
+$B$. In the Jindosh Riddle, the variables we want to find values for are the
+people who own each heirloom. However, these are not the only variables we can
+use to find a solution.
+
+A constraint defines the allowed combination of values for a set of variables.
+In the formula $F = A \land B$, the variables $A$ and $B$ are both constrained
+to be `true` by the $\land$ relationship. An example of a constraint in the
+Jindosh Riddle is:
+
+> Baroness Finch was at the far left
+
+This constraint specifies that the variable representing the person at the far
+left of the table **must** have a value which is equal to the value
+representing Baroness Finch. As we will see later in this post, we can express
+statements like these as a Boolean formula.
 
 ## The Jindosh Riddle Formula
 
@@ -203,6 +207,30 @@ repeated for every category until there are five variable arrays:
 - `drinkVars`
 - `cityVars`
 - `heirloomVars`
+
+### Integers!? Those aren't Boolean Variables
+
+You may have noticed the strange syntax for creating an integer variable:
+
+```js
+const variable = Logic.variableBits("label", 4);
+```
+
+With Logic Solver, integer variables are represented as a group of bits. In the
+example above, we're defining a variable which can hold a value consisting of 4
+bits. Each of these bits can be treated as a Boolean variable, allowing their
+use in a Boolean formula. For example, if we wanted an integer variable $X$ to
+be equal to the number 3 (with bits $0011$), we'd write a Boolean formula such
+as this:
+
+$$
+F = \neg X_0 \land \neg X_1 \land X_2 \land X_3
+$$
+
+Thankfully, Logic Solver abstracts all of this complexity away for us. We can
+use its API to express constraints on integer variables using operators such as
+equality or greater/less-than without worrying about how to map these to the
+individual bits as a Boolean formula.
 
 ### Bounded Domain
 
