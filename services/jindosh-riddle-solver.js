@@ -97,39 +97,41 @@ function solve(options) {
     };
   }
 
-  const personA = Logic.variableBits("personA", 4);
-  const personB = Logic.variableBits("personB", 4);
-  const personC = Logic.variableBits("personC", 4);
-  const personD = Logic.variableBits("personD", 4);
-  const personE = Logic.variableBits("personE", 4);
+  const numBits = 3;
+
+  const personA = Logic.variableBits("personA", numBits);
+  const personB = Logic.variableBits("personB", numBits);
+  const personC = Logic.variableBits("personC", numBits);
+  const personD = Logic.variableBits("personD", numBits);
+  const personE = Logic.variableBits("personE", numBits);
   const peopleVars = [personA, personB, personC, personD, personE];
 
-  const colorA = Logic.variableBits("colorA", 4);
-  const colorB = Logic.variableBits("colorB", 4);
-  const colorC = Logic.variableBits("colorC", 4);
-  const colorD = Logic.variableBits("colorD", 4);
-  const colorE = Logic.variableBits("colorE", 4);
+  const colorA = Logic.variableBits("colorA", numBits);
+  const colorB = Logic.variableBits("colorB", numBits);
+  const colorC = Logic.variableBits("colorC", numBits);
+  const colorD = Logic.variableBits("colorD", numBits);
+  const colorE = Logic.variableBits("colorE", numBits);
   const colorVars = [colorA, colorB, colorC, colorD, colorE];
 
-  const drinkA = Logic.variableBits("drinkA", 4);
-  const drinkB = Logic.variableBits("drinkB", 4);
-  const drinkC = Logic.variableBits("drinkC", 4);
-  const drinkD = Logic.variableBits("drinkD", 4);
-  const drinkE = Logic.variableBits("drinkE", 4);
+  const drinkA = Logic.variableBits("drinkA", numBits);
+  const drinkB = Logic.variableBits("drinkB", numBits);
+  const drinkC = Logic.variableBits("drinkC", numBits);
+  const drinkD = Logic.variableBits("drinkD", numBits);
+  const drinkE = Logic.variableBits("drinkE", numBits);
   const drinkVars = [drinkA, drinkB, drinkC, drinkD, drinkE];
 
-  const cityA = Logic.variableBits("cityA", 4);
-  const cityB = Logic.variableBits("cityB", 4);
-  const cityC = Logic.variableBits("cityC", 4);
-  const cityD = Logic.variableBits("cityD", 4);
-  const cityE = Logic.variableBits("cityE", 4);
+  const cityA = Logic.variableBits("cityA", numBits);
+  const cityB = Logic.variableBits("cityB", numBits);
+  const cityC = Logic.variableBits("cityC", numBits);
+  const cityD = Logic.variableBits("cityD", numBits);
+  const cityE = Logic.variableBits("cityE", numBits);
   const cityVars = [cityA, cityB, cityC, cityD, cityE];
 
-  const heirloomA = Logic.variableBits("heirloomA", 4);
-  const heirloomB = Logic.variableBits("heirloomB", 4);
-  const heirloomC = Logic.variableBits("heirloomC", 4);
-  const heirloomD = Logic.variableBits("heirloomD", 4);
-  const heirloomE = Logic.variableBits("heirloomE", 4);
+  const heirloomA = Logic.variableBits("heirloomA", numBits);
+  const heirloomB = Logic.variableBits("heirloomB", numBits);
+  const heirloomC = Logic.variableBits("heirloomC", numBits);
+  const heirloomD = Logic.variableBits("heirloomD", numBits);
+  const heirloomE = Logic.variableBits("heirloomE", numBits);
   const heirloomVars = [heirloomA, heirloomB, heirloomC, heirloomD, heirloomE];
 
   const solver = new Logic.Solver();

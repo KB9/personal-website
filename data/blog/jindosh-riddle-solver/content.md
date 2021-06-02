@@ -191,11 +191,11 @@ the problem first. With Logic Solver, we model such an array like so (using
 people as an example):
 
 ```js
-const personA = Logic.variableBits("personA", 4);
-const personB = Logic.variableBits("personB", 4);
-const personC = Logic.variableBits("personC", 4);
-const personD = Logic.variableBits("personD", 4);
-const personE = Logic.variableBits("personE", 4);
+const personA = Logic.variableBits("personA", 3);
+const personB = Logic.variableBits("personB", 3);
+const personC = Logic.variableBits("personC", 3);
+const personD = Logic.variableBits("personD", 3);
+const personE = Logic.variableBits("personE", 3);
 const peopleVars = [personA, personB, personC, personD, personE];
 ```
 
@@ -213,24 +213,28 @@ repeated for every category until there are five variable arrays:
 You may have noticed the strange syntax for creating an integer variable:
 
 ```js
-const variable = Logic.variableBits("label", 4);
+const variable = Logic.variableBits("label", 3);
 ```
 
 With Logic Solver, integer variables are represented as a group of bits. In the
-example above, we're defining a variable which can hold a value consisting of 4
+example above, we're defining a variable which can hold a value consisting of 3
 bits. Each of these bits can be treated as a Boolean variable, allowing their
 use in a Boolean formula. For example, if we wanted an integer variable $X$ to
-be equal to the number 3 (with bits $0011$), we'd write a Boolean formula such
+be equal to the number 2 (with bits $010$), we'd write a Boolean formula such
 as this:
 
 $$
-F = \neg X_0 \land \neg X_1 \land X_2 \land X_3
+F = \neg X_0 \land X_1 \land \neg X_3
 $$
 
 Thankfully, Logic Solver abstracts all of this complexity away for us. We can
 use its API to express constraints on integer variables using operators such as
 equality or greater/less-than without worrying about how to map these to the
 individual bits as a Boolean formula.
+
+You may wonder why only 3 bits are used to represent our integer variables.
+Given that we are mapping each item to an integer value ID in the 0-4 range for
+each category, we only need 3 bits to represent all of these values.
 
 ### Bounded Domain
 
