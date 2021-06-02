@@ -562,6 +562,8 @@ does exist:
 - Lady Winslow owns the Bird Pendant
 - Countess Contee owns the Snuff Tin
 
+### Try it Out!
+
 I have implemented a [small demo](/blog/jindosh-riddle-solver-app) which
 implements the solver using the techniques discussed in this blog post. You can
 use it to solve any version of the Jindosh Riddle you find posted online (or
