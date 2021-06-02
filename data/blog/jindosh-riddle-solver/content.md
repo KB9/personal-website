@@ -86,9 +86,9 @@ MiniSAT is a small but efficient SAT solver which accepts formulas expressed in
 conjunctive normal form (CNF), and outputs whether the formula is satisfiable
 or not along with the values which satisfy the formula.
 
-Boolean formulas expressed in CNF consist of a conjunction (AND) of clauses,
-with each clause being a disjunction (OR) of literals. Some examples of
-formulas in CNF include:
+Boolean formulas expressed in CNF consist of a conjunction (logical AND written
+as $\land$) of clauses, with each clause being a disjunction (logical OR
+written as $\lor$) of literals. Some examples of formulas in CNF include:
 
 - $(A \lor B) \land (C \lor D)$
 - $(A \lor B) \land C$
