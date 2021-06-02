@@ -34,8 +34,6 @@ function JindoshGrid(props) {
       <Box
         w={`${w}px`}
         h={`${h}px`}
-        mr={`${border}px`}
-        mb={`${border}px`}
         bg="white"
         fontSize="xs"
         key={i}
@@ -59,7 +57,7 @@ function JindoshGrid(props) {
         border={`${border}px solid black`}
         userSelect="none"
       >
-        <SimpleGrid columns={cols}>
+        <SimpleGrid columns={cols} spacing={`${border}px`}>
           {gridCells}
         </SimpleGrid>
       </Box>
