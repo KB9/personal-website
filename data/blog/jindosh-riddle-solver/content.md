@@ -1,6 +1,6 @@
 *If you just want to generate a solution to the riddle instead of reading about
-the implementation, [click here](/blog/jindosh-riddle-solver-app). Otherwise
-read on!*
+the implementation, [click here](/demos/jindosh-riddle-solver). Otherwise read
+on!*
 
 > ## The Jindosh Riddle
 >
@@ -564,7 +564,7 @@ does exist:
 
 ### Try it Out!
 
-I have implemented a [small demo](/blog/jindosh-riddle-solver-app) which
+I have implemented a [small demo](/demos/jindosh-riddle-solver) which
 implements the solver using the techniques discussed in this blog post. You can
 use it to solve any version of the Jindosh Riddle you find posted online (or
 while playing Dishonored 2). For convenience, the demo allows you to generate
