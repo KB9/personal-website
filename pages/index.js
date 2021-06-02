@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Box, Flex, Heading, Link, Stack, Text } from "@chakra-ui/react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import Layout from "../components/Layout";
+import Layout from "@/components/Layout";
 
 function Home() {
   return (

@@ -2,10 +2,10 @@ import { useState } from "react";
 import Head from "next/head";
 import { Box, Container } from "@chakra-ui/react";
 
-import Layout from "../../components/Layout";
-import JindoshRiddleInput from "../../components/JindoshRiddleInput";
-import JindoshRiddleSolution from "../../components/JindoshRiddleSolution";
-import Solver from "../../services/jindosh-riddle-solver";
+import Layout from "@/components/Layout";
+import JindoshRiddleInput from "@/components/JindoshRiddleInput";
+import JindoshRiddleSolution from "@/components/JindoshRiddleSolution";
+import Solver from "@/services/jindosh-riddle-solver";
 
 function JindoshRiddleSolver() {
   const [solverResult, setSolverResult] = useState(null);

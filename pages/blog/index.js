@@ -1,10 +1,10 @@
 import Head from "next/head";
 import { Heading, Stack } from "@chakra-ui/react";
 
-import Layout from "../../components/Layout";
-import BlogCard from "../../components/BlogCard";
+import Layout from "@/components/Layout";
+import BlogCard from "@/components/BlogCard";
 
-import Blog from "../../services/blog";
+import Blog from "@/services/blog";
 
 function BlogHomePage(props) {
 

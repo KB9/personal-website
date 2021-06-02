@@ -18,10 +18,10 @@ import cpp from 'react-syntax-highlighter/dist/cjs/languages/hljs/cpp';
 import js from "react-syntax-highlighter/dist/cjs/languages/hljs/javascript";
 import github from 'react-syntax-highlighter/dist/cjs/styles/hljs/github';
 
-import Layout from "../../components/Layout";
-import JindoshGrid from "../../components/JindoshGrid";
+import Layout from "@/components/Layout";
+import JindoshGrid from "@/components/JindoshGrid";
 
-import Blog from "../../services/blog";
+import Blog from "@/services/blog";
 
 import "katex/dist/katex.min.css";
 

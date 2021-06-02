@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Button, Center, Heading, Stack, Select, Tooltip } from "@chakra-ui/react";
 
-import Solver from "../../services/jindosh-riddle-solver";
+import Solver from "@/services/jindosh-riddle-solver";
 
 const { cities, colors, drinks, heirlooms, people } = Solver.options;
 
