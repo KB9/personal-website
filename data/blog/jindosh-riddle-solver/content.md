@@ -242,7 +242,8 @@ The first constraint to apply to the integer variables within an array is to
 specify a bounded domain. This will ensure that the integer values found in a
 solution are within the $[0, 4]$ range. These values can then be associated
 with the item IDs we are using. Without this, incorrect solutions
-containing values such as $1337$ would be considered valid.
+containing values such as $5$, $6$, or $7$ would be considered valid (since
+these values can also be represented with 3 bits).
 
 ```js
 const withinRange = (vars, lowerBound, upperBound) => {
