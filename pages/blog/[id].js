@@ -1,4 +1,3 @@
-import Head from "next/head";
 import {
   Box,
   Divider,
@@ -189,24 +188,18 @@ const rehypePlugins = [
 
 function BlogPost(props) {
   return (
-    <>
-      <Head>
-        <title>{props.blogPost.title} | Kavan Bickerstaff</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layout maxWidth="container.md">
-        <Heading mb="1">{props.blogPost.title}</Heading>
-        <Text mb="1">{props.blogPost.subtitle}</Text>
-        <Text mb="6">{props.blogPost.timestamp}</Text>
-        <ReactMarkdown
-          components={mdComponents}
-          plugins={mdPlugins}
-          rehypePlugins={rehypePlugins}
-        >
-          {props.blogPost.content}
-        </ReactMarkdown>
-      </Layout>
-    </>
+    <Layout title={props.blogPost.title} maxWidth="container.md">
+      <Heading mb="1">{props.blogPost.title}</Heading>
+      <Text mb="1">{props.blogPost.subtitle}</Text>
+      <Text mb="6">{props.blogPost.timestamp}</Text>
+      <ReactMarkdown
+        components={mdComponents}
+        plugins={mdPlugins}
+        rehypePlugins={rehypePlugins}
+      >
+        {props.blogPost.content}
+      </ReactMarkdown>
+    </Layout>
   )
 }
 

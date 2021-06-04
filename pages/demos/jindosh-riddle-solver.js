@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Head from "next/head";
 import { Box, Container } from "@chakra-ui/react";
 
 import Layout from "@/components/Layout";
@@ -23,23 +22,17 @@ function JindoshRiddleSolver() {
   }
 
   return (
-    <>
-      <Head>
-        <title>Jindosh Riddle Solver | Kavan Bickerstaff</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layout maxWidth="container.xl" height="100vh">
-        <Container maxWidth="container.md">
-          <Box mb="4">
-            <JindoshRiddleInput
-              onSubmit={options => solveRiddle(options)}
-              missingOptionNames={missingOptionNames}
-            />
-          </Box>
-          {wasSolveSuccessful ? <JindoshRiddleSolution solution={solverResult.solution} /> : null}
-        </Container>
-      </Layout>
-    </>
+    <Layout title="Jindosh Riddle Solver" maxWidth="container.xl" height="100vh">
+      <Container maxWidth="container.md">
+        <Box mb="4">
+          <JindoshRiddleInput
+            onSubmit={options => solveRiddle(options)}
+            missingOptionNames={missingOptionNames}
+          />
+        </Box>
+        {wasSolveSuccessful ? <JindoshRiddleSolution solution={solverResult.solution} /> : null}
+      </Container>
+    </Layout>
   );
 }
 

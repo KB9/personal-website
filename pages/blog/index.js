@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { Heading, Stack } from "@chakra-ui/react";
 
 import Layout from "@/components/Layout";
@@ -21,18 +20,12 @@ function BlogHomePage(props) {
   });
 
   return (
-    <>
-    <Head>
-      <title>Blog | Kavan Bickerstaff</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-    <Layout maxWidth="container.md">
+    <Layout title="Blog" maxWidth="container.md">
       <Heading as="h1" marginTop="10">Blog</Heading>
       <Stack direction="column" marginTop="6" spacing="4">
         {blogPostLinks}
       </Stack>
     </Layout>
-    </>
   );
 }
 
