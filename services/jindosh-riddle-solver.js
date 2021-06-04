@@ -41,7 +41,8 @@ const heirlooms = [
 ];
 
 function optionId(optionValue, options) {
-  return options.indexOf(optionValue);
+  const id = options.indexOf(optionValue);
+  return Logic.constantBits(id);
 }
 
 function optionString(optionId, options) {
@@ -140,24 +141,24 @@ function solve(options) {
     solver.require(
       Logic.or(
         Logic.and(
-          Logic.equalBits(varsA[0], Logic.constantBits(valueA)),
-          Logic.equalBits(varsB[0], Logic.constantBits(valueB))
+          Logic.equalBits(varsA[0], valueA),
+          Logic.equalBits(varsB[0], valueB)
         ),
         Logic.and(
-          Logic.equalBits(varsA[1], Logic.constantBits(valueA)),
-          Logic.equalBits(varsB[1], Logic.constantBits(valueB))
+          Logic.equalBits(varsA[1], valueA),
+          Logic.equalBits(varsB[1], valueB)
         ),
         Logic.and(
-          Logic.equalBits(varsA[2], Logic.constantBits(valueA)),
-          Logic.equalBits(varsB[2], Logic.constantBits(valueB))
+          Logic.equalBits(varsA[2], valueA),
+          Logic.equalBits(varsB[2], valueB)
         ),
         Logic.and(
-          Logic.equalBits(varsA[3], Logic.constantBits(valueA)),
-          Logic.equalBits(varsB[3], Logic.constantBits(valueB))
+          Logic.equalBits(varsA[3], valueA),
+          Logic.equalBits(varsB[3], valueB)
         ),
         Logic.and(
-          Logic.equalBits(varsA[4], Logic.constantBits(valueA)),
-          Logic.equalBits(varsB[4], Logic.constantBits(valueB))
+          Logic.equalBits(varsA[4], valueA),
+          Logic.equalBits(varsB[4], valueB)
         )
       )
     );
@@ -167,33 +168,33 @@ function solve(options) {
     solver.require(
       Logic.or(
         Logic.and(
-          Logic.equalBits(varsA[0], Logic.constantBits(valueA)),
-          Logic.equalBits(varsB[1], Logic.constantBits(valueB))
+          Logic.equalBits(varsA[0], valueA),
+          Logic.equalBits(varsB[1], valueB)
         ),
         Logic.and(
-          Logic.equalBits(varsA[1], Logic.constantBits(valueA)),
+          Logic.equalBits(varsA[1], valueA),
           Logic.or(
-            Logic.equalBits(varsB[0], Logic.constantBits(valueB)),
-            Logic.equalBits(varsB[2], Logic.constantBits(valueB))
+            Logic.equalBits(varsB[0], valueB),
+            Logic.equalBits(varsB[2], valueB)
           )
         ),
         Logic.and(
-          Logic.equalBits(varsA[2], Logic.constantBits(valueA)),
+          Logic.equalBits(varsA[2], valueA),
           Logic.or(
-            Logic.equalBits(varsB[1], Logic.constantBits(valueB)),
-            Logic.equalBits(varsB[3], Logic.constantBits(valueB))
+            Logic.equalBits(varsB[1], valueB),
+            Logic.equalBits(varsB[3], valueB)
           )
         ),
         Logic.and(
-          Logic.equalBits(varsA[3], Logic.constantBits(valueA)),
+          Logic.equalBits(varsA[3], valueA),
           Logic.or(
-            Logic.equalBits(varsB[2], Logic.constantBits(valueB)),
-            Logic.equalBits(varsB[4], Logic.constantBits(valueB))
+            Logic.equalBits(varsB[2], valueB),
+            Logic.equalBits(varsB[4], valueB)
           )
         ),
         Logic.and(
-          Logic.equalBits(varsA[4], Logic.constantBits(valueA)),
-          Logic.equalBits(varsB[3], Logic.constantBits(valueB))
+          Logic.equalBits(varsA[4], valueA),
+          Logic.equalBits(varsB[3], valueB)
         )
       )
     );
@@ -232,11 +233,11 @@ function solve(options) {
 
   // [Character] was at the far left
   const farLeftPerson = optionId(options.farLeftPerson, people);
-  solver.require(Logic.equalBits(personA, Logic.constantBits(farLeftPerson)));
+  solver.require(Logic.equalBits(personA, farLeftPerson));
 
   // [Character] was at the far left, next to the guest wearing a [color] jacket.
   const jacketColor = optionId(options.jacketColor, colors);
-  solver.require(Logic.equalBits(colorB, Logic.constantBits(jacketColor)));
+  solver.require(Logic.equalBits(colorB, jacketColor));
 
   // The lady in [color] sat left of someone in [color]
   const leftColor = optionId(options.leftColor, colors);
@@ -244,20 +245,20 @@ function solve(options) {
   solver.require(
     Logic.or(
       Logic.and(
-        Logic.equalBits(colorA, Logic.constantBits(leftColor)),
-        Logic.equalBits(colorB, Logic.constantBits(rightColor))
+        Logic.equalBits(colorA, leftColor),
+        Logic.equalBits(colorB, rightColor)
       ),
       Logic.and(
-        Logic.equalBits(colorB, Logic.constantBits(leftColor)),
-        Logic.equalBits(colorC, Logic.constantBits(rightColor))
+        Logic.equalBits(colorB, leftColor),
+        Logic.equalBits(colorC, rightColor)
       ),
       Logic.and(
-        Logic.equalBits(colorC, Logic.constantBits(leftColor)),
-        Logic.equalBits(colorD, Logic.constantBits(rightColor))
+        Logic.equalBits(colorC, leftColor),
+        Logic.equalBits(colorD, rightColor)
       ),
       Logic.and(
-        Logic.equalBits(colorD, Logic.constantBits(leftColor)),
-        Logic.equalBits(colorE, Logic.constantBits(rightColor))
+        Logic.equalBits(colorD, leftColor),
+        Logic.equalBits(colorE, rightColor)
       )
     )
   );
@@ -275,9 +276,7 @@ function solve(options) {
   // jumped up onto the table falling onto the guest in the center seat,
   // spilling the poor woman's [drink]
   const centerDrink = optionId(options.centerDrink, drinks);
-  solver.require(
-    Logic.equalBits(drinkC, Logic.constantBits(centerDrink))
-  );
+  solver.require(Logic.equalBits(drinkC, centerDrink));
 
   // Then [character] captivated them all with a story about her wild youth in
   // [city].
