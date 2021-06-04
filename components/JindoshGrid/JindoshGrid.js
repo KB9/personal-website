@@ -52,7 +52,9 @@ function JindoshGrid(props) {
     <Center>
       <Box
         w={`${totalW}px`}
+        minW={`${totalW}px`}
         h={`${totalH}px`}
+        minH={`${totalH}px`}
         bg="black"
         border={`${border}px solid black`}
         userSelect="none"
