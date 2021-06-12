@@ -7,7 +7,11 @@ import Footer from "@/components/Footer";
 function Layout(props) {
   let title = "Kavan Bickerstaff";
   if (props.title) {
-    title = `${props.title} | ${title}`;
+    if (props.strictTitle) {
+      title = props.title;
+    } else {
+      title = `${props.title} | ${title}`;
+    }
   }
   return (
     <Box>

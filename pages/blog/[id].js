@@ -204,7 +204,7 @@ function BlogPost(props) {
         <meta property="og:image:height" content="630" />
         <meta property="og:description" content={props.blogPost.subtitle} />
       </Head>
-      <Layout title={props.blogPost.title} maxWidth="container.md">
+      <Layout title={props.blogPost.title} maxWidth="container.md" strictTitle>
         <Heading mb="1">{props.blogPost.title}</Heading>
         <Text mb="1">{props.blogPost.subtitle}</Text>
         <Text>{props.blogPost.timestamp}</Text>
