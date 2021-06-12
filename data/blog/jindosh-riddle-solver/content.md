@@ -408,7 +408,8 @@ position at the table. For the three statements mentioned previously:
 ```js
 // Doctor Marcolla wore a jaunty white hat.
 requireMatchesAtSameIndex(colorVars, white, peopleVars, marcolla);
-// I remember that red outfit because the woman spilled her absinthe all over it.
+// I remember that red outfit because the woman spilled her absinthe
+// all over it.
 requireMatchesAtSameIndex(drinkVars, absinthe, colorVars, red);
 // The traveler from Karnaca was dressed entirely in purple.
 requireMatchesAtSameIndex(colorVars, purple, cityVars, karnaca);
@@ -484,15 +485,15 @@ exist (according to our constraints). To account for these edge cases, we can
 use the following constraints:
 
 ```js
-// Constraint for the ring at the left-most seat, with the person from Karnaca
-// to its right.
+// Constraint for the ring at the left-most seat, with the person
+// from Karnaca to its right.
 Logic.and(
   Logic.equalBits(heirloomVars[0], ring),
   Logic.equalBits(cityVars[1], karnaca)
 );
 
-// OR constraint for the ring at the right-most seat, with the person from
-// Karnaca to its left.
+// OR constraint for the ring at the right-most seat, with the person
+// from Karnaca to its left.
 Logic.and(
   Logic.equalBits(heirloomVars[4], ring),
   Logic.equalBits(cityVars[3], karnaca)
@@ -544,13 +545,14 @@ const requireMatchesWithinSingleIndex = (varsA, valueA, varsB, valueB) => {
 This can then be applied to the relevant statements from the riddle:
 
 ```js
-// Someone else carried a valuable War Medal and when she saw it, the visitor
-// from Dabokva next to her...
+// Someone else carried a valuable War Medal and when she saw it,
+// the visitor from Dabokva next to her...
 requireMatchesWithinSingleIndex(heirloomVars, warMedal, cityVars, dabokva);
-// ...the visitor from Dabokva next to her almost spilled her neighbor's rum.
+// ...the visitor from Dabokva next to her almost spilled her
+// neighbor's rum.
 requireMatchesWithinSingleIndex(cityVars, dabokva, drinkVars, rum);
-// When one of the dinner guests bragged about her Ring, the woman next to her
-// said they were finer in Karnaca, where she lived.
+// When one of the dinner guests bragged about her Ring, the woman
+// next to her said they were finer in Karnaca, where she lived.
 requireMatchesWithinSingleIndex(heirloomVars, ring, cityVars, karnaca);
 ```
 
