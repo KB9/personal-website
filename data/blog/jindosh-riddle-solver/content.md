@@ -144,10 +144,10 @@ statements like these as a Boolean formula.
 
 ### Solver
 
-The `Solver` object maintains a list of formulas that must be true (or false),
-which you can think of as a list of constraints. Each `Solver` instance embeds
-a self-contained MiniSat instance, which learns and remembers facts that are
-derived from the constraints.
+Logic Solver's `Solver` is used to maintain a list of formulas that must be
+true (or false), which you can think of as a list of constraints. Each `Solver`
+instance embeds a self-contained MiniSat instance, which learns and remembers
+facts that are derived from the constraints.
 
 ```js
 const solver = new Logic.Solver();
