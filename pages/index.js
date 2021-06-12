@@ -20,7 +20,7 @@ function Home() {
             I'm Kavan,
           </Heading>
           <Text fontSize="3xl">
-            a software engineer based in Belfast and Edinburgh.<br/>
+            a software engineer based in Belfast (for now).<br/>
             I love building stuff.
           </Text>
           <Box marginTop="30px">
