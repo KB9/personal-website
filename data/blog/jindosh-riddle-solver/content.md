@@ -569,7 +569,7 @@ does exist:
 - Lady Winslow owns the Bird Pendant
 - Countess Contee owns the Snuff Tin
 
-### Try it Out!
+## Try it Out!
 
 I have implemented a [small demo](/demos/jindosh-riddle-solver) which
 implements the solver using the techniques discussed in this blog post. You can
