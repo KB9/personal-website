@@ -54,10 +54,8 @@ Boolean satisfiability problem in order to derive a solution.
 Imagine we have two Boolean variables $A$ and $B$, and a formula $F$ which uses
 these variables. The goal is to find the values of $A$ and $B$ that make $F$
 `true`. If there exists values that can make $F$ `true`, we say that $F$ is
-satisfiable.
-
-An example of a satisfiable formula is the logical AND (written $\land$) of
-these variables:
+satisfiable. An example of a satisfiable formula is the logical AND (written
+$\land$) of these variables:
 
 $$
 F = A \land B
