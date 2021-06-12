@@ -200,9 +200,8 @@ function solve(options) {
     );
   };
 
-  const withinRange = (vars, lowerBound, upperBound) => {
+  const lessThanOrEqual = (vars, upperBound) => {
     for (let i = 0; i < vars.length; i++) {
-      solver.require(Logic.greaterThanOrEqual(vars[i], lowerBound));
       solver.require(Logic.lessThanOrEqual(vars[i], upperBound));
     }
   };
@@ -217,13 +216,12 @@ function solve(options) {
     }
   };
 
-  const lowerBound = Logic.constantBits(0);
   const upperBound = Logic.constantBits(4);
-  withinRange(peopleVars, lowerBound, upperBound);
-  withinRange(colorVars, lowerBound, upperBound);
-  withinRange(drinkVars, lowerBound, upperBound);
-  withinRange(cityVars, lowerBound, upperBound);
-  withinRange(heirloomVars, lowerBound, upperBound);
+  lessThanOrEqual(peopleVars, upperBound);
+  lessThanOrEqual(colorVars, upperBound);
+  lessThanOrEqual(drinkVars, upperBound);
+  lessThanOrEqual(cityVars, upperBound);
+  lessThanOrEqual(heirloomVars, upperBound);
 
   allDifferent(peopleVars);
   allDifferent(colorVars);

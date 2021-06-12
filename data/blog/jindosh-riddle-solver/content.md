@@ -246,20 +246,18 @@ containing values such as $5$, $6$, or $7$ would be considered valid (since
 these values can also be represented with 3 bits).
 
 ```js
-const withinRange = (vars, lowerBound, upperBound) => {
+const lessThanOrEqual = (vars, upperBound) => {
   for (let i = 0; i < vars.length; i++) {
-    solver.require(Logic.greaterThanOrEqual(vars[i], lowerBound));
     solver.require(Logic.lessThanOrEqual(vars[i], upperBound));
   }
 };
 
-const lowerBound = Logic.constantBits(0);
 const upperBound = Logic.constantBits(4);
-withinRange(peopleVars, lowerBound, upperBound);
-withinRange(colorVars, lowerBound, upperBound);
-withinRange(drinkVars, lowerBound, upperBound);
-withinRange(cityVars, lowerBound, upperBound);
-withinRange(heirloomVars, lowerBound, upperBound);
+lessThanOrEqual(peopleVars, upperBound);
+lessThanOrEqual(colorVars, upperBound);
+lessThanOrEqual(drinkVars, upperBound);
+lessThanOrEqual(cityVars, upperBound);
+lessThanOrEqual(heirloomVars, upperBound);
 ```
 
 ### Distinct Values
