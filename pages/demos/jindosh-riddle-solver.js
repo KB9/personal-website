@@ -22,7 +22,7 @@ function JindoshRiddleSolver() {
   }
 
   return (
-    <Layout title="Jindosh Riddle Solver" maxWidth="container.xl" height="100vh">
+    <Layout title="Jindosh Riddle Solver" maxWidth="container.xl">
       <Container maxWidth="container.md">
         <Box mb="4">
           <JindoshRiddleInput
