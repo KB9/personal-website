@@ -3,9 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Layout from "@/components/Layout";
 
+import URLs from "@/data/urls";
+
 function Home() {
   return (
-    <Layout maxWidth="container.xl" height="100vh">
+    <Layout maxWidth="container.xl" height="100vh" hideFooter>
       <Flex
         direction="column"
         justifyContent="center"
@@ -28,13 +30,13 @@ function Home() {
               spacing="16px"
               alignItems="center"
             >
-              <Link href="https://www.linkedin.com/in/kavan-bickerstaff-46a757133/" isExternal>
+              <Link href={URLs.linkedin} isExternal>
                 <FontAwesomeIcon icon={["fab", "linkedin"]} width="32px" />
               </Link>
-              <Link href="https://github.com/KB9" isExternal>
+              <Link href={URLs.github} isExternal>
                 <FontAwesomeIcon icon={["fab", "github"]} width="32px" />
               </Link>
-              <Link href="mailto:kb@kavanbickerstaff.com" isExternal>
+              <Link href={URLs.email} isExternal>
                 <FontAwesomeIcon icon="envelope" width="32px" />
               </Link>
             </Stack>

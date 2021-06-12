@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Box, Container } from "@chakra-ui/react";
 
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 function Layout(props) {
   let title = "Kavan Bickerstaff";
@@ -28,6 +29,7 @@ function Layout(props) {
       >
         {props.children}
       </Container>
+      {props.hideFooter ? null : <Footer />}
     </Box>
   );
 }
