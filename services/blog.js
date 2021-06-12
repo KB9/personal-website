@@ -25,6 +25,11 @@ async function getBlogPostMetadata(postId) {
   return metadataJson;
 }
 
+async function getBlogPostImagePath(postId) {
+  const imagePath = path.join("/blog_images", postId + ".jpg");
+  return imagePath.toString();
+}
+
 async function getBlogPostList() {
   let blogPostList = [];
 
@@ -53,5 +58,6 @@ async function getBlogPostContent(postId) {
 export default {
   getBlogPostList,
   getBlogPostContent,
-  getBlogPostMetadata
+  getBlogPostMetadata,
+  getBlogPostImagePath
 };

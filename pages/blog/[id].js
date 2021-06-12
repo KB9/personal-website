@@ -1,3 +1,4 @@
+import NextImage from "next/image";
 import {
   Box,
   Divider,
@@ -191,7 +192,10 @@ function BlogPost(props) {
     <Layout title={props.blogPost.title} maxWidth="container.md">
       <Heading mb="1">{props.blogPost.title}</Heading>
       <Text mb="1">{props.blogPost.subtitle}</Text>
-      <Text mb="6">{props.blogPost.timestamp}</Text>
+      <Text>{props.blogPost.timestamp}</Text>
+      <Box p="30px 0px">
+        <NextImage src={props.blogPost.imagePath} width={1200} height={630} />
+      </Box>
       <ReactMarkdown
         components={mdComponents}
         plugins={mdPlugins}
@@ -208,10 +212,12 @@ export default BlogPost;
 export async function getStaticProps(context) {
   const postId = context.params.id;
   const metadata = await Blog.getBlogPostMetadata(postId);
+  const imagePath = await Blog.getBlogPostImagePath(postId);
   const content = await Blog.getBlogPostContent(postId);
 
   const blogPost = {
     ...metadata,
+    imagePath,
     content
   };
 
