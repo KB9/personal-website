@@ -165,7 +165,7 @@ If we were to visualise this, it would look something like this:
 {
   "cols": 6,
   "rows": 6,
-  "topHeaders": ["Seat A", "Seat B", "Seat C", "Seat D", "Seat E"],
+  "topHeaders": ["Seat 0", "Seat 1", "Seat 2", "Seat 3", "Seat 4"],
   "leftHeaders": ["Person", "City", "Colour", "Drink", "Heirloom"]
 }
 ```
@@ -193,12 +193,12 @@ the problem first. With Logic Solver, we model such an array like so (using
 people as an example):
 
 ```js
-const personA = Logic.variableBits("personA", 3);
-const personB = Logic.variableBits("personB", 3);
-const personC = Logic.variableBits("personC", 3);
-const personD = Logic.variableBits("personD", 3);
-const personE = Logic.variableBits("personE", 3);
-const peopleVars = [personA, personB, personC, personD, personE];
+const person0 = Logic.variableBits("person0", 3);
+const person1 = Logic.variableBits("person1", 3);
+const person2 = Logic.variableBits("person2", 3);
+const person3 = Logic.variableBits("person3", 3);
+const person4 = Logic.variableBits("person4", 3);
+const peopleVars = [person0, person1, person2, person3, person4];
 ```
 
 In essence, this simply creates an array with space for five integers. This is
@@ -324,7 +324,7 @@ If we visualise the effect of these constraints on the values in our grid:
 {
   "cols": 6,
   "rows": 6,
-  "topHeaders": ["Seat A", "Seat B", "Seat C", "Seat D", "Seat E"],
+  "topHeaders": ["Seat 0", "Seat 1", "Seat 2", "Seat 3", "Seat 4"],
   "leftHeaders": ["Person", "City", "Colour", "Drink", "Heirloom"],
   "cellContents": {
     "7": "Finch",

@@ -88,6 +88,15 @@ function getMissingOptions(options) {
   return missingOptionNames;
 }
 
+function createIntVarArray(length, labelPrefix, numBits) {
+  const intVarArray = [];
+  for (let i = 0; i < length; ++i) {
+    const label = labelPrefix + i;
+    intVarArray.push(Logic.variableBits(label, numBits));
+  }
+  return intVarArray;
+}
+
 function solve(options) {
 
   const missingOptionNames = getMissingOptions(options);
@@ -98,42 +107,13 @@ function solve(options) {
     };
   }
 
+  const arrayLength = 5;
   const numBits = 3;
-
-  const personA = Logic.variableBits("personA", numBits);
-  const personB = Logic.variableBits("personB", numBits);
-  const personC = Logic.variableBits("personC", numBits);
-  const personD = Logic.variableBits("personD", numBits);
-  const personE = Logic.variableBits("personE", numBits);
-  const peopleVars = [personA, personB, personC, personD, personE];
-
-  const colorA = Logic.variableBits("colorA", numBits);
-  const colorB = Logic.variableBits("colorB", numBits);
-  const colorC = Logic.variableBits("colorC", numBits);
-  const colorD = Logic.variableBits("colorD", numBits);
-  const colorE = Logic.variableBits("colorE", numBits);
-  const colorVars = [colorA, colorB, colorC, colorD, colorE];
-
-  const drinkA = Logic.variableBits("drinkA", numBits);
-  const drinkB = Logic.variableBits("drinkB", numBits);
-  const drinkC = Logic.variableBits("drinkC", numBits);
-  const drinkD = Logic.variableBits("drinkD", numBits);
-  const drinkE = Logic.variableBits("drinkE", numBits);
-  const drinkVars = [drinkA, drinkB, drinkC, drinkD, drinkE];
-
-  const cityA = Logic.variableBits("cityA", numBits);
-  const cityB = Logic.variableBits("cityB", numBits);
-  const cityC = Logic.variableBits("cityC", numBits);
-  const cityD = Logic.variableBits("cityD", numBits);
-  const cityE = Logic.variableBits("cityE", numBits);
-  const cityVars = [cityA, cityB, cityC, cityD, cityE];
-
-  const heirloomA = Logic.variableBits("heirloomA", numBits);
-  const heirloomB = Logic.variableBits("heirloomB", numBits);
-  const heirloomC = Logic.variableBits("heirloomC", numBits);
-  const heirloomD = Logic.variableBits("heirloomD", numBits);
-  const heirloomE = Logic.variableBits("heirloomE", numBits);
-  const heirloomVars = [heirloomA, heirloomB, heirloomC, heirloomD, heirloomE];
+  const peopleVars = createIntVarArray(arrayLength, "person", numBits);
+  const colorVars = createIntVarArray(arrayLength, "color", numBits);
+  const drinkVars = createIntVarArray(arrayLength, "drink", numBits);
+  const cityVars = createIntVarArray(arrayLength, "city", numBits);
+  const heirloomVars = createIntVarArray(arrayLength, "heirloom", numBits);
 
   const solver = new Logic.Solver();
 
@@ -231,11 +211,11 @@ function solve(options) {
 
   // [Character] was at the far left
   const farLeftPerson = optionId(options.farLeftPerson, people);
-  solver.require(Logic.equalBits(personA, farLeftPerson));
+  solver.require(Logic.equalBits(peopleVars[0], farLeftPerson));
 
   // [Character] was at the far left, next to the guest wearing a [color] jacket.
   const jacketColor = optionId(options.jacketColor, colors);
-  solver.require(Logic.equalBits(colorB, jacketColor));
+  solver.require(Logic.equalBits(colorVars[1], jacketColor));
 
   // The lady in [color] sat left of someone in [color]
   const leftColor = optionId(options.leftColor, colors);
@@ -243,20 +223,20 @@ function solve(options) {
   solver.require(
     Logic.or(
       Logic.and(
-        Logic.equalBits(colorA, leftColor),
-        Logic.equalBits(colorB, rightColor)
+        Logic.equalBits(colorVars[0], leftColor),
+        Logic.equalBits(colorVars[1], rightColor)
       ),
       Logic.and(
-        Logic.equalBits(colorB, leftColor),
-        Logic.equalBits(colorC, rightColor)
+        Logic.equalBits(colorVars[1], leftColor),
+        Logic.equalBits(colorVars[2], rightColor)
       ),
       Logic.and(
-        Logic.equalBits(colorC, leftColor),
-        Logic.equalBits(colorD, rightColor)
+        Logic.equalBits(colorVars[2], leftColor),
+        Logic.equalBits(colorVars[3], rightColor)
       ),
       Logic.and(
-        Logic.equalBits(colorD, leftColor),
-        Logic.equalBits(colorE, rightColor)
+        Logic.equalBits(colorVars[3], leftColor),
+        Logic.equalBits(colorVars[4], rightColor)
       )
     )
   );
@@ -274,7 +254,7 @@ function solve(options) {
   // jumped up onto the table falling onto the guest in the center seat,
   // spilling the poor woman's [drink]
   const centerDrink = optionId(options.centerDrink, drinks);
-  solver.require(Logic.equalBits(drinkC, centerDrink));
+  solver.require(Logic.equalBits(drinkVars[2], centerDrink));
 
   // Then [character] captivated them all with a story about her wild youth in
   // [city].
