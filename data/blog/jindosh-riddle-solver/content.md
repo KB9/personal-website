@@ -175,14 +175,16 @@ go where in this grid. Though what values will we use?
 
 When modelling a problem such as this, we tend to use integer variables. More
 specifically, we can uniquely represent each item in the five identified
-categories using unique integer variables as IDs. For example, if we were to do
+categories using unique integer values as IDs. For example, if we were to do
 this for each person:
 
-- Lady Winslow = $0$
-- Doctor Marcolla = $1$
-- Countess Contee = $2$
-- Madam Natsiou = $3$
-- Baroness Finch = $4$
+```js
+const winslow = Logic.constantBits(0);  // winslow = 0
+const marcolla = Logic.constantBits(1); // marcolla = 1
+const contee = Logic.constantBits(2);   // contee = 2
+const natsiou = Logic.constantBits(3);  // natsiou = 3
+const finch = Logic.constantBits(4);    // finch = 4
+```
 
 This means we can represent each category as an integer array with five
 unique values representing each item at a particular seat. However, we have
