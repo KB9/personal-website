@@ -40,7 +40,14 @@ An interesting feature of this riddle is that it is different for each
 playthrough of the game. The position of each person at the table, the colour
 of their dress, the drink they have, and a couple of other properties change
 depending on what version of the riddle you get. This means that there is no
-single solution that will work for everyone's playthrough.
+single solution that will work for everyone's playthrough. To keep this post
+simple, we'll focus on modelling the version of the riddle above (though the
+approach can easily be extended to deal with any version).
+
+In essence, the Jindosh Riddle specifies that there are numerous items at fixed
+positions with various spatial relationships between them. As we'll see
+throughout this post, this makes it a great candidate for modelling as a
+Boolean satisfiability problem in order to derive a solution.
 
 ## What is a Boolean Satisfiability Problem (SAT)?
 
