@@ -569,6 +569,12 @@ does exist:
 - Lady Winslow owns the Bird Pendant
 - Countess Contee owns the Snuff Tin
 
+While we've focused our approach on solving one version of the riddle, you can
+easily use this approach to solve any version. The only aspect of the riddle
+that changes is the item at a specific position. Therefore a flexible solver
+can be implemented by leaving the choice of the item up to the user. Our
+constraints will take care of the rest!
+
 ## Try it Out!
 
 I have implemented a [small demo](/demos/jindosh-riddle-solver) which
@@ -577,3 +583,7 @@ use it to solve any version of the Jindosh Riddle you find posted online (or
 while playing Dishonored 2). For convenience, the demo allows you to generate
 the version of the riddle at the beginning of this blog post so that you can see
 how it works.
+
+Alternatively, if you're interested in seeing the full implementation, you can
+find the source code of the solver used for the demo
+[here](https://github.com/KB9/personal-website/blob/develop/services/jindosh-riddle-solver.js).
