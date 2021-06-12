@@ -15,7 +15,7 @@ import Katex from "rehype-katex";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import cpp from 'react-syntax-highlighter/dist/cjs/languages/hljs/cpp';
 import js from "react-syntax-highlighter/dist/cjs/languages/hljs/javascript";
-import github from 'react-syntax-highlighter/dist/cjs/styles/hljs/github';
+import vs from 'react-syntax-highlighter/dist/cjs/styles/hljs/vs';
 
 import Layout from "@/components/Layout";
 import JindoshGrid from "@/components/JindoshGrid";
@@ -62,7 +62,7 @@ const mdComponents = {
     return !props.inline && match ? (
       <SyntaxHighlighter
         language={match[1]}
-        style={github}
+        style={vs}
         PreTag="div"
         children={String(props.children).replace(/\n$/, '')}
         customStyle={{ background: preBackground }}
