@@ -16,8 +16,13 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "framer-motion": "^3.7.0",
+    "logic-solver": "^2.0.1",
     "next": "^10.0.0",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-markdown": "^6.0.2",
+    "react-syntax-highlighter": "^15.4.3",
+    "rehype-katex": "^5.0.0",
+    "remark-math": "^4.0.0"
   }
 }
