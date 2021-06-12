@@ -1,4 +1,6 @@
+import Head from "next/head";
 import NextImage from "next/image";
+import { useRouter } from "next/router";
 import {
   Box,
   Divider,
@@ -188,23 +190,37 @@ const rehypePlugins = [
 ];
 
 function BlogPost(props) {
+  const websiteUrl = process.env.NEXT_PUBLIC_WEBSITE_URL;
+  // Path to optimized next/image (w = width, q = quality)
+  const canonicalImagePath = `${websiteUrl}/_next/image?url=${encodeURIComponent(props.blogPost.imagePath)}&w=1200&q=75`;
+  const router = useRouter();
+  const canonicalUrl = `${websiteUrl}${router.asPath}`;
   return (
-    <Layout title={props.blogPost.title} maxWidth="container.md">
-      <Heading mb="1">{props.blogPost.title}</Heading>
-      <Text mb="1">{props.blogPost.subtitle}</Text>
-      <Text>{props.blogPost.timestamp}</Text>
-      <Box p="30px 0px">
-        <NextImage src={props.blogPost.imagePath} width={1200} height={630} />
-      </Box>
-      <ReactMarkdown
-        components={mdComponents}
-        plugins={mdPlugins}
-        rehypePlugins={rehypePlugins}
-      >
-        {props.blogPost.content}
-      </ReactMarkdown>
-    </Layout>
-  )
+    <>
+      <Head>
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={canonicalImagePath} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:description" content={props.blogPost.subtitle} />
+      </Head>
+      <Layout title={props.blogPost.title} maxWidth="container.md">
+        <Heading mb="1">{props.blogPost.title}</Heading>
+        <Text mb="1">{props.blogPost.subtitle}</Text>
+        <Text>{props.blogPost.timestamp}</Text>
+        <Box p="30px 0px">
+          <NextImage src={props.blogPost.imagePath} width={1200} height={630} />
+        </Box>
+        <ReactMarkdown
+          components={mdComponents}
+          plugins={mdPlugins}
+          rehypePlugins={rehypePlugins}
+        >
+          {props.blogPost.content}
+        </ReactMarkdown>
+      </Layout>
+    </>
+  );
 }
 
 export default BlogPost;
