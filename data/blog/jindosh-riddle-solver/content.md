@@ -560,8 +560,8 @@ requireMatchesWithinSingleIndex(heirloomVars, ring, cityVars, karnaca);
 
 Calling `solver.solve()` will find the first solution which satisfies all the
 specified constraints, or it will determine that no such solution is possible
-based off of our constraints. You've probably already guessed that a solution
-does exist:
+based off of our constraints. You might have guessed that a solution does
+exist:
 
 - Baroness Finch owns the War Medal
 - Madam Natsiou owns the Ring
