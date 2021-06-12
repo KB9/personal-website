@@ -20,7 +20,7 @@ function BlogHomePage(props) {
   });
 
   return (
-    <Layout title="Blog" maxWidth="container.md">
+    <Layout title="Blog" maxWidth="container.md" height="100vh">
       <Heading as="h1" marginTop="10">Blog</Heading>
       <Stack direction="column" marginTop="6" spacing="4">
         {blogPostLinks}
