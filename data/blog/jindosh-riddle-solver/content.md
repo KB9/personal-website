@@ -586,4 +586,4 @@ how it works.
 
 Alternatively, if you're interested in seeing the full implementation, you can
 find the source code of the solver used for the demo
-[here](https://github.com/KB9/personal-website/blob/develop/services/jindosh-riddle-solver.js).
+[here](https://github.com/KB9/personal-website/blob/master/services/jindosh-riddle-solver.js).
