@@ -20,7 +20,7 @@ function Home() {
             I'm Kavan,
           </Heading>
           <Text fontSize="3xl">
-            a software engineer based in Belfast (for now).<br/>
+            a software engineer based in Edinburgh.<br />
             I love building stuff.
           </Text>
           <Box marginTop="30px">
@@ -47,7 +47,7 @@ function Home() {
           position="absolute"
           bottom="0"
           right="0"
-          fontSize="300px" 
+          fontSize="300px"
           fontWeight="600"
           lineHeight="340px"
           userSelect="none"
