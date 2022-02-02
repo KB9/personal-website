@@ -2,7 +2,7 @@ import path from "path";
 import { promises as fs } from "fs";
 
 function blogRootDir() {
-  return path.join(process.cwd(), "data", "blog");
+  return path.join(process.cwd(), "src", "data", "blog");
 }
 
 function blogPostDir(postId) {
